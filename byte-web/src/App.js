@@ -1,25 +1,54 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import firebase from "./firebase";
 import './App.css';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.ref = firebase.firestore().collection('items');
+    this.unsubscribe = null;
+    this.state = {
+      items: []
+    };
+  }
+
+  onCollectionUpdate = (querySnapshot) => {
+    const items = [];
+    querySnapshot.forEach((doc) => {
+      const { name } = doc.data();
+      items.push({ 
+        name: name,
+        id: doc.id
+      });
+    });
+    this.setState({ items });
+  }
+
+  componentDidMount() {
+    this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.items.map(item =>
+              <tr key={item.id}>
+                <td>{item.name}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     );
   }
