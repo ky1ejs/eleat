@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import firebase from "./firebase";
-import './App.css';
+import React, { Component } from 'react'
+import firebase from "./firebase"
+import './App.css'
+import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 
 class App extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class App extends Component {
     const items = [];
     querySnapshot.forEach((doc) => {
       const { name } = doc.data();
-      items.push({ 
+      items.push({
         name: name,
         id: doc.id
       });
@@ -35,22 +36,23 @@ class App extends Component {
   render() {
     return (
       <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.items.map(item =>
-              <tr key={item.id}>
-                <td>{item.name}</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+        {this.state.items.map(item => <Item key={item.id} name={item.name} />)}
       </div>
     );
+  }
+}
+
+class Item extends Component {
+  render() {
+    return (
+      <Form inline>
+        <FormGroup>
+          <ControlLabel>Name</ControlLabel>{' '}
+          <FormControl type="text" defaultValue={this.props.name} />
+        </FormGroup>{' '}
+        <Button type="submit">Save</Button>
+      </Form>
+    )
   }
 }
 
