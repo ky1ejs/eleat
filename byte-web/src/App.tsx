@@ -1,8 +1,7 @@
-import React, { Component, FormEvent } from 'react'
+import React, { Component } from 'react'
 import firebase from "./firebase"
 import './App.css'
 import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
-
 
 interface Item { 
   id: string, 
