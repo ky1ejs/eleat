@@ -1,5 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
+import { Link } from 'react-router-dom'
 import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
 
 interface PlanProps { userId: string }
@@ -58,7 +59,11 @@ class PlanComp extends Component<Plan> {
         <FormGroup>
           <ControlLabel>{this.props.name}</ControlLabel>{' '}
         </FormGroup>{' '}
-        <Button type="submit">View</Button>
+        <Button type="submit">
+          <Link to={'plan/' + this.props.id}>
+            View
+          </Link>
+        </Button>
         <Button type="submit">Delete</Button>
       </Form>
     )

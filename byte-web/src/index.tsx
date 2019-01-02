@@ -7,6 +7,7 @@ import Login from './Login'
 import CompleteLogin from './CompleteLogin'
 import Navigation from './Navigation'
 import PlanTable from './PlanTable'
+import PlanDetail from './PlanDetail'
 import firebase from './firebase'
 import * as serviceWorker from './serviceWorker'
 
@@ -16,9 +17,24 @@ ReactDOM.render(
       <Navigation />
       <Route path='/items' component={App} />
       <Route path='/login' component={Login} />
-      <Route path='/plan' render={props => {
+      <Route exact path='/plan' render={props => {
         if (firebase.auth().currentUser) {
           return <PlanTable userId={firebase.auth().currentUser!.uid} />
+        } else {
+          return <Redirect to='login' />
+        }
+      }} />
+      <Route exact path='/plan/:id' render={props => {
+        console.log(firebase.auth())
+        console.log(firebase.auth().currentUser)
+        if (firebase.auth().currentUser) {
+          let uid = firebase.auth().currentUser!.uid
+          let plan = firebase.firestore()
+            .collection('users') 
+            .doc(uid)
+            .collection('plans')
+            .doc(props.match.params.id)
+          return <PlanDetail plan={plan} />
         } else {
           return <Redirect to='login' />
         }
