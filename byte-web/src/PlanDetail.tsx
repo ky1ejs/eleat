@@ -1,29 +1,87 @@
 import React, { Component, FormEvent, isValidElement } from 'react'
 import firebase from './firebase'
 import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
-import { Item, Serving, Plan, planFromSnapshot, savePlan } from './model'
+import { Item, Serving, Meal, Plan, planFromSnapshot, savePlan } from './model'
 
 interface PlanDetailState {
-  plan?: Plan,
-  items: Item[]
+  plan?: Plan
 }
 interface PlanDetailProps {
   plan_ref: firebase.firestore.DocumentReference
 }
 class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
-  itemUnsubscribe?: Function = undefined
   planUnsubscribe?: Function = undefined
-  itemSelect: HTMLInputElement | undefined
-  gramsTF: HTMLInputElement | undefined
-  
+  mealNameTF: HTMLInputElement | undefined
+
   constructor(props: PlanDetailProps) {
     super(props)
-    this.state = { plan: undefined, items: [] }
+    this.state = { plan: undefined }
   }
 
   onPlanUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
     let plan = planFromSnapshot(querySnapshot)
     this.setState({ plan })
+  }
+
+  componentDidMount() {
+    this.planUnsubscribe = this.props.plan_ref.onSnapshot(this.onPlanUpdate)
+  }
+
+  componentWillUnmount() {
+    if (this.planUnsubscribe) { this.planUnsubscribe() }
+  }
+
+  addClick = (e: FormEvent<Form>) => {
+    e.preventDefault()
+    let plan = this.state.plan
+    if (plan) {
+      plan.meals.push({ name: this.mealNameTF!.value, servings: []})
+      savePlan(plan)
+    }
+  }
+
+  render() {
+    let plan = this.state.plan
+    var meals: JSX.Element[] = []
+    if (plan) {
+      for (var i = 0; i < plan.meals.length; i++) {
+        let meal = plan.meals[i]
+        meals.push(<MealComp key={i} plan={plan} mealIndex={i} />)
+      }
+    }
+    return (
+      <div>
+        {meals}
+        <Form inline onSubmit={this.addClick}>
+          <FormGroup>
+            <ControlLabel>Meal Name</ControlLabel>{' '}
+            <FormControl inputRef={(ref) => this.mealNameTF = ref} type='text' />
+          </FormGroup>{' '}
+          <Button type="submit">Save</Button>
+        </Form>
+      </div>
+    )
+  }
+}
+
+interface MealCompProps {
+  plan: Plan
+  mealIndex: number
+}
+interface MealCompState {
+  items: Item[]
+}
+class MealComp extends Component<MealCompProps, MealCompState> {
+  itemSelect: HTMLInputElement | undefined
+  gramsTF: HTMLInputElement | undefined
+  itemUnsubscribe?: Function = undefined
+
+  constructor(props: MealCompProps) {
+    super(props)
+    this.state = { items: [] }
+  }
+  meal(): Meal {
+    return this.props.plan.meals[this.props.mealIndex]
   }
 
   onItemsUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
@@ -41,43 +99,32 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
     this.setState({ items })
   }
 
-  componentDidMount() {
-    this.itemUnsubscribe = firebase.firestore().collection('items').onSnapshot(this.onItemsUpdate)
-    this.planUnsubscribe = this.props.plan_ref.onSnapshot(this.onPlanUpdate)
-  }
-
-  componentWillUnmount() {
-    if (this.itemUnsubscribe) { this.itemUnsubscribe() }
-    if (this.planUnsubscribe) { this.planUnsubscribe() }
-  }
-
   addClick = (e: FormEvent<Form>) => {
     e.preventDefault()
     let item_ref = firebase.firestore().collection('items').doc(this.itemSelect!.value)
     let grams = Number(this.gramsTF!.value)
-    let plan = this.state.plan
-    if (plan) {
-      plan.meals.push({ name: 'Breakfast', servings: [{ grams, item_ref }]})
-      savePlan(plan)
-    }
+    this.meal().servings.push({ grams, item_ref })
+    savePlan(this.props.plan)
+  }
+
+  componentDidMount() {
+    this.itemUnsubscribe = firebase.firestore().collection('items').onSnapshot(this.onItemsUpdate)
+  }
+
+  componentWillUnmount() {
+    if (this.itemUnsubscribe) { this.itemUnsubscribe() }
   }
 
   render() {
-    let plan = this.state.plan
     var servings: JSX.Element[] = []
-    if (plan) {
-      for (var i = 0; i < plan.meals.length; i++) {
-        let meal = plan.meals[i]
-        for (var j = 0; j < meal.servings.length; j++) {
-          let serving = meal.servings[j]
-          servings.push(
-            <div>
-              <ServingComp key={serving.item_ref.id} plan={{...plan}} mealIndex={i} servingIndex={j} />
-            </div>
-          )
-        }
-      }
+    for (var i = 0; i < this.meal().servings.length; i++) {
+      servings.push(
+        <div>
+          <ServingComp key={this.meal().servings[i].item_ref.id} plan={{ ...this.props.plan }} mealIndex={this.props.mealIndex} servingIndex={i} />
+        </div>
+      )
     }
+
     return (
       <div>
         {servings}

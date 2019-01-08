@@ -16,7 +16,7 @@ export interface Plan {
 
 export interface Meal {
   name: string,
-  servings: [Serving]
+  servings: Serving[]
 }
 
 export function planFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot): Plan {
