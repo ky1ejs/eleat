@@ -29,12 +29,12 @@ ReactDOM.render(
         console.log(firebase.auth().currentUser)
         if (firebase.auth().currentUser) {
           let uid = firebase.auth().currentUser!.uid
-          let plan = firebase.firestore()
+          let plan_ref = firebase.firestore()
             .collection('users') 
             .doc(uid)
             .collection('plans')
             .doc(props.match.params.id)
-          return <PlanDetail plan={plan} />
+          return <PlanDetail plan_ref={ plan_ref } />
         } else {
           return <Redirect to='login' />
         }

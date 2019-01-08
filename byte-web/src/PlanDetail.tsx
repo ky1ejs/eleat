@@ -1,40 +1,29 @@
 import React, { Component, FormEvent, isValidElement } from 'react'
 import firebase from './firebase'
 import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
+import { Item, Serving, Plan, planFromSnapshot, savePlan } from './model'
 
-interface PlanDetailProps {
-  plan: firebase.firestore.DocumentReference
-}
-interface Serving {
-  id: string
-  item_ref: firebase.firestore.DocumentReference
-  grams: number
-}
 interface PlanDetailState {
-  servings: Serving[],
+  plan?: Plan,
   items: Item[]
 }
-interface Item {
-  id: string,
-  name: string,
-  protein_per_gram: number,
-  fat_per_gram: number,
-  carbs_per_gram: number
+interface PlanDetailProps {
+  plan_ref: firebase.firestore.DocumentReference
 }
 class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
   itemUnsubscribe?: Function = undefined
-  servingsUnsubscribe?: Function = undefined
+  planUnsubscribe?: Function = undefined
   itemSelect: HTMLInputElement | undefined
   gramsTF: HTMLInputElement | undefined
-  state: PlanDetailState = { servings: [], items: [] }
+  
+  constructor(props: PlanDetailProps) {
+    super(props)
+    this.state = { plan: undefined, items: [] }
+  }
 
-  onServingsUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    var servings: Serving[] = []
-    querySnapshot.forEach((doc) => {
-      let data = doc.data()
-      servings.push({ id: doc.id, item_ref: data.item_ref, grams: data.grams })
-    })
-    this.setState({ servings })
+  onPlanUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
+    let plan = planFromSnapshot(querySnapshot)
+    this.setState({ plan })
   }
 
   onItemsUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
@@ -54,25 +43,44 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
 
   componentDidMount() {
     this.itemUnsubscribe = firebase.firestore().collection('items').onSnapshot(this.onItemsUpdate)
-    this.servingsUnsubscribe = this.props.plan.collection('servings').onSnapshot(this.onServingsUpdate)
+    this.planUnsubscribe = this.props.plan_ref.onSnapshot(this.onPlanUpdate)
   }
 
   componentWillUnmount() {
     if (this.itemUnsubscribe) { this.itemUnsubscribe() }
-    if (this.servingsUnsubscribe) { this.servingsUnsubscribe() }
+    if (this.planUnsubscribe) { this.planUnsubscribe() }
   }
 
   addClick = (e: FormEvent<Form>) => {
     e.preventDefault()
     let item_ref = firebase.firestore().collection('items').doc(this.itemSelect!.value)
     let grams = Number(this.gramsTF!.value)
-    this.props.plan.collection('servings').add({ grams, item_ref })
+    let plan = this.state.plan
+    if (plan) {
+      plan.meals.push({ name: 'Breakfast', servings: [{ grams, item_ref }]})
+      savePlan(plan)
+    }
   }
 
   render() {
+    let plan = this.state.plan
+    var servings: JSX.Element[] = []
+    if (plan) {
+      for (var i = 0; i < plan.meals.length; i++) {
+        let meal = plan.meals[i]
+        for (var j = 0; j < meal.servings.length; j++) {
+          let serving = meal.servings[j]
+          servings.push(
+            <div>
+              <ServingComp key={serving.item_ref.id} plan={{...plan}} mealIndex={i} servingIndex={j} />
+            </div>
+          )
+        }
+      }
+    }
     return (
       <div>
-        {this.state.servings.map(serving => <ServingComp key={serving.id} {...serving} />)}
+        {servings}
         <Form inline onSubmit={this.addClick}>
           <FormGroup>
             <FormGroup controlId="formControlsSelect">
@@ -91,7 +99,12 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
   }
 }
 
-class ServingComp extends Component<Serving, Item> {
+interface ServingCompProps {
+  plan: Plan
+  mealIndex: number
+  servingIndex: number
+}
+class ServingComp extends Component<ServingCompProps, Item> {
   itemUnsubscribe?: Function = undefined
   state = {
     id: '',
@@ -113,23 +126,31 @@ class ServingComp extends Component<Serving, Item> {
   }
 
   componentDidMount() {
-    this.itemUnsubscribe = this.props.item_ref.onSnapshot(this.onItemUpdate)
+    this.itemUnsubscribe = this.serving().item_ref.onSnapshot(this.onItemUpdate)
   }
 
   componentWillUnmount() {
     if (this.itemUnsubscribe) { this.itemUnsubscribe() }
   }
 
+  delete = () => {
+    this.props.plan.meals[this.props.mealIndex].servings.splice(this.props.servingIndex, 1)
+    savePlan(this.props.plan)
+  }
+
+  serving(): Serving  {
+    return this.props.plan.meals[this.props.mealIndex].servings[this.props.servingIndex]
+  }
 
   render() {
     return (
       <Form inline>
         <FormGroup>
           <ControlLabel>{this.state.name}</ControlLabel>{' '}
-          <ControlLabel>{this.props.grams}</ControlLabel>{' '}
+          <ControlLabel>{this.serving().grams}</ControlLabel>{' '}
         </FormGroup>{' '}
         <Button type="submit">View</Button>
-        <Button type="submit">Delete</Button>
+        <Button onClick={this.delete}>Delete</Button>
       </Form>
     )
   }
