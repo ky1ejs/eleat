@@ -1,8 +1,8 @@
 import React, { Component, FormEvent } from 'react'
-import firebase from './firebase'
+import firebase from '../firebase'
 import { Link } from 'react-router-dom'
 import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
-import { Plan, planFromSnapshot } from './model'
+import { Plan, planFromSnapshot } from '../model'
 
 interface PlanProps { userId: string }
 interface PlanTableState { plans: Plan[] }
