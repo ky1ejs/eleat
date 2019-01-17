@@ -1,20 +1,20 @@
 import React, { Component, FormEvent } from 'react'
-import firebase from '../firebase'
+import firebase from './firebase'
 import { Link } from 'react-router-dom'
 import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
-import { Plan, planFromSnapshot } from '../model'
+import { Schedule, scheduleFromSnapshot,  schedulesForUser } from './model'
 
-interface PlanProps { userId: string }
-interface PlanTableState { plans: Plan[] }
-class PlanTable extends Component<PlanProps, PlanTableState>  {
-  ref = firebase.firestore().collection('users/' + this.props.userId + '/plans')
+interface ScheduleTableProps { userId: string }
+interface ScheduleTableState { schedules: Schedule[] }
+class PlanTable extends Component<ScheduleTableProps, ScheduleTableState>  {
+  ref = schedulesForUser(this.props.userId)
   nameTF: HTMLInputElement | undefined
   unsubscribe?: Function = undefined
-  state: { plans: Plan[] } = { plans: [] }
+  state: ScheduleTableState = { schedules: [] }
 
   onCollectionUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let plans = querySnapshot.docs.map(planFromSnapshot)
-    this.setState({ plans })
+    let schedules = querySnapshot.docs.map(scheduleFromSnapshot)
+    this.setState({ schedules })
   }
 
   componentDidMount() {
@@ -28,16 +28,15 @@ class PlanTable extends Component<PlanProps, PlanTableState>  {
   addClick = (e: FormEvent<Form>) => {
     e.preventDefault()
     let name = this.nameTF!.value
-    let isPublic = false
     if (name.length > 0) {
-      this.ref.add({ name, isPublic })
+      this.ref.add({ name })
     }
   }
 
   render() {
     return (
       <div>
-        { this.state.plans.map(plan => <PlanComp key={plan.firebaseRef.id} { ...plan } />) }
+        {this.state.schedules.map(schedule => <ScheduleComp key={schedule.firebaseRef.id} {...schedule} />)}
         <Form inline onSubmit={this.addClick}>
           <FormGroup>
             <ControlLabel>Name</ControlLabel>{' '}
@@ -50,7 +49,7 @@ class PlanTable extends Component<PlanProps, PlanTableState>  {
   }
 }
 
-class PlanComp extends Component<Plan> {
+class ScheduleComp extends Component<Schedule> {
   delete = () => {
     this.props.firebaseRef.delete()
   }
@@ -63,7 +62,7 @@ class PlanComp extends Component<Plan> {
             <ControlLabel>{this.props.name}</ControlLabel>{' '}
           </FormGroup>{' '}
           <Button type="submit">
-            <Link to={'plan/' + this.props.firebaseRef.id}>
+            <Link to={'schedule/' + this.props.firebaseRef.id}>
               View
             </Link>
           </Button>

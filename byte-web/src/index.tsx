@@ -8,7 +8,10 @@ import CompleteLogin from './CompleteLogin'
 import Navigation from './Navigation'
 import PlanTable from './plan/PlanTable'
 import PlanDetail from './plan/PlanDetail'
+import ScheduleTable from './ScheduleTable'
+import ScheduleDetail from './ScheduleDetail'
 import firebase from './firebase'
+import { schedulesForUser, plansForUser } from './model'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
@@ -25,16 +28,26 @@ ReactDOM.render(
         }
       }} />
       <Route exact path='/plan/:id' render={props => {
-        console.log(firebase.auth())
-        console.log(firebase.auth().currentUser)
         if (firebase.auth().currentUser) {
           let uid = firebase.auth().currentUser!.uid
-          let plan_ref = firebase.firestore()
-            .collection('users') 
-            .doc(uid)
-            .collection('plans')
-            .doc(props.match.params.id)
+          let plan_ref = plansForUser(uid).doc(props.match.params.id)
           return <PlanDetail plan_ref={ plan_ref } />
+        } else {
+          return <Redirect to='login' />
+        }
+      }} />
+      <Route exact path='/schedule' render={props => {
+        if (firebase.auth().currentUser) {
+          return <ScheduleTable userId={firebase.auth().currentUser!.uid} />
+        } else {
+          return <Redirect to='login' />
+        }
+      }} />
+      <Route exact path='/schedule/:id' render={props => {
+        if (firebase.auth().currentUser) {
+          let uid = firebase.auth().currentUser!.uid
+          let scheduleRef = schedulesForUser(uid).doc(props.match.params.id)
+          return <ScheduleDetail scheduleRef={scheduleRef} userId={uid} />
         } else {
           return <Redirect to='login' />
         }

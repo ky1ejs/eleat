@@ -54,7 +54,7 @@ export function savePlan(plan: Plan) {
   plan.firebaseRef.set(planData)
 }
 
-function plansForUser(userId: string): firebase.firestore.CollectionReference {
+export function plansForUser(userId: string): firebase.firestore.CollectionReference {
   return firebase
     .firestore()
     .collection('users')
@@ -67,27 +67,38 @@ export interface Serving {
   grams: number
 }
 
-export class Schedule {
+export interface Schedule {
   firebaseRef: firebase.firestore.DocumentReference
+  name: string
   plans: firebase.firestore.DocumentReference[]
+}
 
-  constructor(snapshot: firebase.firestore.DocumentSnapshot) {
-    this.firebaseRef = snapshot.ref
-    let data = snapshot.data()
-    if (data) {
-      this.plans = data.plans
-    } else {
-      throw new Error('Where\'s the data mate?')
+export function schedulesForUser(userId: string): firebase.firestore.CollectionReference {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(userId)
+    .collection('schedules')
+}
+
+export function scheduleFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot): Schedule {
+  let data = snapshot.data()
+  if (data) {
+    let plans = data.plans || []
+    return {
+      firebaseRef: snapshot.ref,
+      name: data.name,
+      plans: plans
     }
+  } else {
+    throw new Error('Where\'s the data mate?')
   }
+}
 
-  schedulesForUser(userId: string) {
-    return firebase
-      .firestore()
-      .collection('users')
-      .doc(userId)
-      .collection('schedules')
-  }
+export function saveSchedule(schecule: Schedule) {
+  var scheduleData = { ...schecule }
+  delete scheduleData.firebaseRef
+  schecule.firebaseRef.set(scheduleData)
 }
 
 export interface Nutrition {
