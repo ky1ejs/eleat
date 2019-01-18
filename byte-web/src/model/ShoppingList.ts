@@ -6,8 +6,8 @@ export interface ShoppingListItem {
 }
 export async function generateShoppingListForPlan(plan: Plan): Promise<Map<string, ShoppingListItem>> {
   var list = new Map<string, ShoppingListItem>()
-  await plan.meals.forEach(async (meal) => {
-    meal.servings.forEach(async (serving) => {
+  for (const meal of plan.meals) {
+    for (const serving of meal.servings) {
       let id = serving.item_ref.id
       let item = list.get(id)
       if (item) {
@@ -16,14 +16,14 @@ export async function generateShoppingListForPlan(plan: Plan): Promise<Map<strin
         let doc = await serving.item_ref.get()
         list.set(id, { itemName: doc.data()!.name, grams: serving.grams })
       }
-    })
-  })
+    }
+  }
   return list
 }
 
 export async function generateShoppingListForPlans(plans: Plan[]): Promise<Map<string, ShoppingListItem>> {
   var list = new Map<string, ShoppingListItem>()
-  await plans.forEach(async (plan) => {
+  for (const plan of plans) {
     let planList = await generateShoppingListForPlan(plan)
     planList.forEach((value, key) => {
       let item = list.get(key)
@@ -33,6 +33,6 @@ export async function generateShoppingListForPlans(plans: Plan[]): Promise<Map<s
         list.set(key, value)
       }
     })
-  })
+  }
   return list
 }
