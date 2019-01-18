@@ -1,11 +1,12 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
 import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
-import { Schedule, Plan, plansForUser, scheduleFromSnapshot, saveSchedule, planFromSnapshot } from './model'
+import { ShoppingListItem, generateShoppingListForPlans, Schedule, Plan, plansForUser, scheduleFromSnapshot, saveSchedule, planFromSnapshot } from './model'
 
 interface ScheduleDetailState {
   schedule?: Schedule,
-  plans: Plan[]
+  plans: Plan[],
+  shoppingList: ShoppingListItem[]
 }
 interface ScheduleDetailProps {
   scheduleRef: firebase.firestore.DocumentReference,
@@ -15,7 +16,7 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   scheduleUnsubscribe?: Function = undefined
   plansUnsubscribe?: Function = undefined
   planSelect: HTMLInputElement | undefined
-  state: ScheduleDetailState = { schedule: undefined, plans: [] }
+  state: ScheduleDetailState = { schedule: undefined, plans: [], shoppingList: [] }
 
   onScheduleUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
     let schedule = scheduleFromSnapshot(querySnapshot)
@@ -25,6 +26,10 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   onPlansUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
     let plans = querySnapshot.docs.map(planFromSnapshot)
     this.setState({ plans })
+    generateShoppingListForPlans(plans).then((list) => {
+      let shoppingList = Array.from(list.values())
+      this.setState({ shoppingList })
+    })
   }
 
   componentDidMount() {
@@ -48,8 +53,14 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   }
 
   render() {
+    var plans: JSX.Element[] = []
+    let schedule = this.state.schedule
+    if (schedule) {
+      plans = schedule.plans.map((ref) => <PlanComp planRef={ref} />)
+    }
     return (
       <div>
+        {plans}
         <Form inline onSubmit={this.addClick}>
           <FormGroup>
             <ControlLabel>Select</ControlLabel>
@@ -59,6 +70,51 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
           </FormGroup>{' '}
           <Button type="submit">Save</Button>
         </Form>
+        <br />
+        <br />
+        <div>
+          <h3>
+            Shopping List
+          </h3>
+          <ul>
+            {this.state.shoppingList.map(item => <li key={item.itemName}>{item.itemName} - {item.grams}g</li> )}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+}
+
+interface PlanCompProps {
+  planRef: firebase.firestore.DocumentReference
+}
+interface PlanCompState {
+  plan?: Plan
+}
+class PlanComp extends Component<PlanCompProps, PlanCompState> {
+  planUnsubscribe?: Function = undefined
+  state: PlanCompState = { plan: undefined }
+
+  onPlanUpdate = (snapshop: firebase.firestore.DocumentSnapshot) => {
+    let plan = planFromSnapshot(snapshop)
+    this.setState({plan})
+  }
+  componentDidMount() {
+    this.planUnsubscribe = this.props.planRef.onSnapshot(this.onPlanUpdate)
+  }
+
+  componentWillUnmount() {
+    if (this.planUnsubscribe) { this.planUnsubscribe() }
+  }
+
+  render() {
+    var name = ""
+    if (this.state.plan) {
+      name = this.state.plan.name
+    }
+    return (
+      <div>
+        <h3>{name}</h3>
       </div>
     )
   }
