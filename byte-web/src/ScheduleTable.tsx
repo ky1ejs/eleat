@@ -2,18 +2,18 @@ import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
 import { Link } from 'react-router-dom'
 import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
-import { Schedule, scheduleFromSnapshot,  schedulesForUser } from './model'
+import * as Model from './model/'
 
 interface ScheduleTableProps { userId: string }
-interface ScheduleTableState { schedules: Schedule[] }
+interface ScheduleTableState { schedules: Model.Schedule[] }
 class PlanTable extends Component<ScheduleTableProps, ScheduleTableState>  {
-  ref = schedulesForUser(this.props.userId)
+  ref = Model.schedulesForUser(this.props.userId)
   nameTF: HTMLInputElement | undefined
   unsubscribe?: Function = undefined
   state: ScheduleTableState = { schedules: [] }
 
   onCollectionUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let schedules = querySnapshot.docs.map(scheduleFromSnapshot)
+    let schedules = querySnapshot.docs.map(Model.scheduleFromSnapshot)
     this.setState({ schedules })
   }
 
@@ -49,7 +49,7 @@ class PlanTable extends Component<ScheduleTableProps, ScheduleTableState>  {
   }
 }
 
-class ScheduleComp extends Component<Schedule> {
+class ScheduleComp extends Component<Model.Schedule> {
   delete = () => {
     this.props.firebaseRef.delete()
   }
