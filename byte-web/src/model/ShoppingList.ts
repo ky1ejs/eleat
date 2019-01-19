@@ -1,7 +1,8 @@
 import { Plan } from './Plan'
+import { Item, itemFromSnapshot } from './Item'
 
 export interface ShoppingListItem {
-  itemName: string,
+  item: Item,
   grams: number
 }
 export async function generateShoppingListForPlan(plan: Plan): Promise<Map<string, ShoppingListItem>> {
@@ -13,8 +14,9 @@ export async function generateShoppingListForPlan(plan: Plan): Promise<Map<strin
       if (item) {
         item.grams += serving.grams
       } else {
-        let doc = await serving.item_ref.get()
-        list.set(id, { itemName: doc.data()!.name, grams: serving.grams })
+        let data = await  serving.item_ref.get()
+        let item = itemFromSnapshot(data)
+        list.set(id, { item: item, grams: serving.grams })
       }
     }
   }

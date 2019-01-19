@@ -85,7 +85,7 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
             Shopping List
           </h3>
           <ul>
-            {this.state.shoppingList.map(item => <li key={item.itemName}>{item.itemName} - {item.grams}g</li> )}
+            {this.state.shoppingList.map(item => <li key={item.item.name}>{item.item.name} - {item.grams} {item.item.measure_name}{item.grams > 1 ? 's' : ''}</li> )}
           </ul>
         </div>
       </div>
