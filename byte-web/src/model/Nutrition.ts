@@ -5,13 +5,15 @@ import { itemFromSnapshot } from './Item'
 export interface Nutrition {
   protein: number,
   carbs: number,
-  fat: number
+  fat: number,
+  cals: number
 }
 
 export async function calculateNutritionForPlan(plan: Plan): Promise<Nutrition> {
   var protein = 0
   var carbs = 0
   var fat = 0
+  var cals = 0
 
   for (var mealIndex = 0; mealIndex < plan.meals.length; mealIndex++) {
     let meal = plan.meals[mealIndex]
@@ -20,10 +22,11 @@ export async function calculateNutritionForPlan(plan: Plan): Promise<Nutrition> 
       protein += nutrition.protein
       carbs += nutrition.carbs
       fat += nutrition.fat
+      cals += nutrition.cals
     }
   }
 
-  return { protein, carbs, fat }
+  return { protein, carbs, fat, cals }
 }
 
 export async function calculateNutritionForServing(serving: Serving): Promise<Nutrition> {
@@ -33,5 +36,7 @@ export async function calculateNutritionForServing(serving: Serving): Promise<Nu
   let carbs = item.carbs_per_gram * serving.grams
   let fat = item.fat_per_gram * serving.grams
 
-  return { protein, carbs, fat }
+  let cals = protein * 4 + carbs * 4 + fat * 9
+
+  return { protein, carbs, fat, cals }
 }

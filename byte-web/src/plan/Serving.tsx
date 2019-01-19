@@ -50,10 +50,10 @@ class ServingComp extends Component<ServingCompProps, ServingCompState> {
         <div>
           <ControlLabel>{item.name}</ControlLabel>
           <FormControl type='text' defaultValue={String(this.serving().grams)} />
-          <ControlLabel>Protein: {protein}g</ControlLabel>{ '   '}
-          <ControlLabel>Fat: { fat }g</ControlLabel > { '   '}
-          <ControlLabel>Carbs: { carbs }g</ControlLabel > { '   '}
-          <ControlLabel>Calories: { calories } kCal</ControlLabel >
+          <ControlLabel>Protein: {Math.round(protein)}g</ControlLabel>{ '   '}
+          <ControlLabel>Fat: { Math.round(fat) }g</ControlLabel > { '   '}
+          <ControlLabel>Carbs: { Math.round(carbs) }g</ControlLabel > { '   '}
+          <ControlLabel>Calories: { Math.round(calories) } kCal</ControlLabel >
         </div>
       )
     }

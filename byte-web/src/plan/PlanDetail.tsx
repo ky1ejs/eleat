@@ -49,9 +49,10 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
       planInfo.push(<h2>{plan.name}</h2>)
       let nutrition = this.state.nutrition
       if (nutrition) {
-        planInfo.push(<h4>Protein: {nutrition.protein}g</h4>)
-        planInfo.push(<h4>Carb: {nutrition.carbs}g</h4>)
-        planInfo.push(<h4>Fat: {nutrition.fat}g</h4>)
+        planInfo.push(<h4>Protein: {Math.round(nutrition.protein)}g</h4>)
+        planInfo.push(<h4>Carb: {Math.round(nutrition.carbs)}g</h4>)
+        planInfo.push(<h4>Fat: {Math.round(nutrition.fat)}g</h4>)
+        planInfo.push(<h4>Cals: {Math.round(nutrition.cals)}kCal</h4>)
       }
       
       for (var i = 0; i < plan.meals.length; i++) {

@@ -1,7 +1,7 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
 import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
-import { ShoppingListItem, generateShoppingListForPlans, Schedule, Plan, plansForUser, scheduleFromSnapshot, saveSchedule, planFromSnapshot } from './model'
+import { ShoppingListItem, generateShoppingListForPlans, Schedule, Plan, plansForUser, scheduleFromSnapshot, saveSchedule, planFromSnapshot, Nutrition } from './model'
 
 interface ScheduleDetailState {
   schedule?: Schedule,
@@ -21,15 +21,23 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   onScheduleUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
     let schedule = scheduleFromSnapshot(querySnapshot)
     this.setState({ schedule })
+    this.getAndgenerateShoppingListForPlans(schedule.plans).then((shoppingList) => {
+      this.setState({ shoppingList })
+    })
   }
 
   onPlansUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
     let plans = querySnapshot.docs.map(planFromSnapshot)
     this.setState({ plans })
-    generateShoppingListForPlans(plans).then((list) => {
-      let shoppingList = Array.from(list.values())
-      this.setState({ shoppingList })
-    })
+  }
+
+  async getAndgenerateShoppingListForPlans(refs: firebase.firestore.DocumentReference[]): Promise<ShoppingListItem[]> {
+    let plans = await Promise.all(refs.map(async (ref) => {
+      let snapshot = await ref.get()
+      return planFromSnapshot(snapshot)
+    }))
+    let list = await generateShoppingListForPlans(plans)
+    return Array.from(list.values())
   }
 
   componentDidMount() {
