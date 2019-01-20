@@ -39,32 +39,28 @@ class ServingComp extends Component<ServingCompProps, ServingCompState> {
 
   render() {
     let item = this.state.item
-    var info: JSX.Element[] = []
+    var rows: JSX.Element[] = []
     if (item) {
       let serving = this.serving()
       let protein = item.protein_per_gram * serving.grams
       let fat = item.fat_per_gram * serving.grams
       let carbs = item.carbs_per_gram * serving.grams
       let calories = (protein * 4) + (fat * 9) + (carbs * 4)
-      info.push(
-        <div>
-          <ControlLabel>{item.name}</ControlLabel>
-          <FormControl type='text' defaultValue={String(this.serving().grams)} />
-          <ControlLabel>Protein: {Math.round(protein)}g</ControlLabel>{ '   '}
-          <ControlLabel>Fat: { Math.round(fat) }g</ControlLabel > { '   '}
-          <ControlLabel>Carbs: { Math.round(carbs) }g</ControlLabel > { '   '}
-          <ControlLabel>Calories: { Math.round(calories) } kCal</ControlLabel >
-        </div>
-      )
+      rows.push(<td>{item.name}</td>)
+      rows.push(<td><FormControl type='text' defaultValue={String(this.serving().grams)} /></td>)
+      rows.push(<td>{Math.round(protein)}g</td>)
+      rows.push(<td>{Math.round(fat)}g</td>)
+      rows.push(<td>{Math.round(carbs)}g</td>)
+      rows.push(<td>{Math.round(calories)} kCal</td>)
     }
 
     return (
-      <Form inline>
-        <FormGroup>
-          {info}
-        </FormGroup>
-        <Button onClick={this.delete}>Delete</Button>
-      </Form>
+      <tr>
+        {rows}
+        <td>
+          <Button onClick={this.delete}>Delete</Button>
+        </td>
+      </tr>
     )
   }
 }

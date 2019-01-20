@@ -47,16 +47,25 @@ class MealComp extends Component<MealCompProps, MealCompState> {
     var servings: JSX.Element[] = []
     for (var i = 0; i < this.meal().servings.length; i++) {
       servings.push(
-        <div>
-          <ServingComp key={this.meal().servings[i].item_ref.id} plan={{ ...this.props.plan }} mealIndex={this.props.mealIndex} servingIndex={i} />
-        </div>
+        <ServingComp key={this.meal().servings[i].item_ref.id} plan={{ ...this.props.plan }} mealIndex={this.props.mealIndex} servingIndex={i} />
       )
     }
 
     return (
       <div>
         <h3>{this.meal().name}</h3>
-        {servings}
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Protein</th>
+            <th>Fat</th>
+            <th>Carbs</th>
+            <th>Calories</th>
+            <th>Actions</th>
+          </tr>
+          {servings}
+        </table>
         <Form inline onSubmit={this.addClick}>
           <FormGroup>
             <FormGroup controlId="formControlsSelect">
