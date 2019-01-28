@@ -32,10 +32,27 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   }
 
   async getAndgenerateShoppingListForPlans(refs: firebase.firestore.DocumentReference[]): Promise<ShoppingListItem[]> {
-    let plans = await Promise.all(refs.map(async (ref) => {
-      let snapshot = await ref.get()
-      return planFromSnapshot(snapshot)
-    }))
+    var refsAndPlans = new Map<string, {count: number, plan: Plan}>()
+    for (const ref of refs) {
+      let existingPlan = refsAndPlans.get(ref.id)
+      console.log(ref.id)
+      if (existingPlan) {
+        existingPlan.count += 1
+      } else {
+        let snapshot = await ref.get()
+        refsAndPlans.set(ref.id, {
+          count: 1,
+          plan: planFromSnapshot(snapshot)
+        })
+      }
+    }
+    let plans = Array.from(refsAndPlans.values()).map((planCount) => {
+      var repeatedPlans = new Array<Plan>()
+      for (var i = 0; i < planCount.count; i++) {
+        repeatedPlans.push(planCount.plan)
+      }
+      return repeatedPlans
+    }).flat()
     let list = await generateShoppingListForPlans(plans)
     return Array.from(list.values())
   }
