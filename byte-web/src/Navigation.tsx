@@ -21,6 +21,9 @@ class Navigation extends Component<{}>  {
           <NavItem eventKey={3}>
             <NavLink to="/schedule">Schedule</NavLink>
           </NavItem>
+          <NavItem eventKey={4}>
+            <NavLink to="/profile">Profile</NavLink>
+          </NavItem>
         </Nav>
       </Navbar>
     )
