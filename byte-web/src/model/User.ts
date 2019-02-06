@@ -5,13 +5,21 @@ export enum Sex {
   Female = 'female'
 }
 
+interface MacroTargets {
+  fat_percentage: number,
+  carb_percentage: number,
+  protein_percentage: number
+}
+
 export interface User {
   firebase_ref: firebase.firestore.DocumentReference,
   username?: string
   dob?: firebase.firestore.Timestamp,
   height_in_milimeters?: number,
   weight_in_grams?: number,
-  sex?: Sex
+  sex?: Sex,
+  caloric_surplus?: number
+  macros_target?: MacroTargets
 }
 
 export function saveUser(user: User) {
@@ -21,6 +29,16 @@ export function saveUser(user: User) {
   if (!user.weight_in_grams || user.weight_in_grams <= 0 ) { delete user.weight_in_grams }
   if (!user.dob) { delete user.dob }
   if (!user.sex) { delete user.sex }
+  if (!user.caloric_surplus || user.caloric_surplus <= 0) {
+    delete user.caloric_surplus
+  }
+  if (!user.macros_target ||
+      user.macros_target.carb_percentage < 0 || user.macros_target.carb_percentage > 1 ||
+      user.macros_target.protein_percentage < 0 || user.macros_target.protein_percentage > 1 ||
+      user.macros_target.fat_percentage < 0 || user.macros_target.fat_percentage > 1 ||
+      user.macros_target.fat_percentage +  user.macros_target.protein_percentage +  user.macros_target.carb_percentage != 1) {
+        delete user.macros_target
+  }
   ref.set(user)
   user.firebase_ref = ref
 }

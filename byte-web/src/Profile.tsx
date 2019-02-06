@@ -14,6 +14,10 @@ class Login extends Component<ProfileProps, User> {
   dobPicker?: HTMLInputElement | undefined
   heightTF?: HTMLInputElement | undefined
   weightTF?: HTMLInputElement | undefined
+  calSurplusTF?: HTMLInputElement | undefined
+  proteinTargetTF?: HTMLInputElement | undefined
+  carbTargetTF?: HTMLInputElement | undefined
+  fatTargetTF?: HTMLInputElement | undefined
   state: User = { firebase_ref: this.props.userRef }
 
   onUserUpdate = (snapshot: firebase.firestore.DocumentSnapshot) => {
@@ -46,6 +50,19 @@ class Login extends Component<ProfileProps, User> {
       let grams = kgs * 1000
       newData.weight_in_grams =  grams
     }
+    if (this.calSurplusTF) {
+      newData.caloric_surplus = parseInt(this.calSurplusTF.value, 10)
+    }
+    if (this.proteinTargetTF && this.carbTargetTF && this.fatTargetTF) {
+      let protein = parseInt(this.proteinTargetTF.value, 10) / 100
+      let carbs = parseInt(this.carbTargetTF.value, 10) / 100
+      let fat = parseInt(this.fatTargetTF.value, 10) / 100
+      newData.macros_target = {
+        protein_percentage: protein,
+        carb_percentage: carbs,
+        fat_percentage: fat
+      }
+    }
     newData.sex = Sex.Male
     saveUser(newData)
   }
@@ -65,6 +82,10 @@ class Login extends Component<ProfileProps, User> {
     let date = this.state.dob && this.state.dob.toDate()
     let height = (this.state.height_in_milimeters) ? String(this.state.height_in_milimeters / 100) : undefined
     let weight = (this.state.weight_in_grams) ? String(this.state.weight_in_grams / 1000) : undefined
+    let calSurplus = (this.state.caloric_surplus) ? String(this.state.caloric_surplus) : undefined
+    let protein_target = (this.state.macros_target) ? String(this.state.macros_target.protein_percentage * 100) : undefined
+    let carbs_target = (this.state.macros_target) ? String(this.state.macros_target.carb_percentage * 100) : undefined
+    let fat_target = (this.state.macros_target) ? String(this.state.macros_target.fat_percentage * 100) : undefined
 
     return (
       <div>
@@ -75,20 +96,37 @@ class Login extends Component<ProfileProps, User> {
         </FormGroup>{' '}
         <FormGroup>
           <ControlLabel>Height</ControlLabel>{' '}
-          <FormControl defaultValue={height} inputRef={ref => { this.heightTF = ref }} type="text" />
+          <FormControl defaultValue={height} inputRef={ref => { this.heightTF = ref }} type="number" />
         </FormGroup>{' '}
         <FormGroup>
           <ControlLabel>Weight</ControlLabel>{' '}
-          <FormControl defaultValue={weight} inputRef={ref => { this.weightTF = ref }} type="text" />
+          <FormControl defaultValue={weight} inputRef={ref => { this.weightTF = ref }} type="number" />
         </FormGroup>{' '}
         <FormGroup>
           <DatePicker selected={date} onChange={this.onDateChange} />
+        </FormGroup>{' '}
+      <h3>BMR: {bmr(this.state)}</h3>
+        <FormGroup>
+          <ControlLabel>Surplus</ControlLabel>{' '}
+          <FormControl defaultValue={calSurplus} inputRef={ref => { this.calSurplusTF = ref }} type="number" />
+        </FormGroup>{' '}
+      <h4>Macros</h4>
+        <FormGroup>
+          <ControlLabel>Protein</ControlLabel>{' '}
+          <FormControl defaultValue={protein_target} inputRef={ref => { this.proteinTargetTF = ref }} type="number" />
+        </FormGroup>{' '}
+        <FormGroup>
+          <ControlLabel>Carbs</ControlLabel>{' '}
+          <FormControl defaultValue={carbs_target} inputRef={ref => { this.carbTargetTF = ref }} type="number" />
+        </FormGroup>{' '}
+        <FormGroup>
+          <ControlLabel>Fat</ControlLabel>{' '}
+          <FormControl defaultValue={fat_target} inputRef={ref => { this.fatTargetTF = ref }} type="number" />
         </FormGroup>{' '}
         <FormGroup>
           <Button type='submit'>Save</Button>
         </FormGroup>
       </Form>
-      <h3>BMR: {bmr(this.state)}</h3>
       </div>
     )
   }
