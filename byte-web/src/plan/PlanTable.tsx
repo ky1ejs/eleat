@@ -2,7 +2,7 @@ import React, { Component, FormEvent } from 'react'
 import firebase from '../firebase'
 import { Link } from 'react-router-dom'
 import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
-import { Plan, planFromSnapshot } from '../model'
+import { Plan, planFromSnapshot, savePlan } from '../model'
 
 interface PlanProps { userId: string }
 interface PlanTableState { plans: Plan[] }
@@ -55,6 +55,14 @@ class PlanComp extends Component<Plan> {
     this.props.firebaseRef.delete()
   }
 
+  duplicate = () => {
+    let name = this.props.name + ' Copy'
+    this.props.firebaseRef.parent.add({ name: name, isPublic: false })
+      .then(firebaseRef => {
+        savePlan({ ...this.props, firebaseRef, name })
+      })
+  }
+
   render() {
     return (
       <div>
@@ -68,6 +76,7 @@ class PlanComp extends Component<Plan> {
             </Link>
           </Button>
           <Button onClick={this.delete}> Delete </Button>
+          <Button onClick={this.duplicate}> Duplicate </Button>
         </Form>
       </div>
     )
