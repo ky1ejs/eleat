@@ -72,14 +72,16 @@ export function bmr(user: User, withActivity: Boolean): number {
 interface MacroAmounts {
   carbs_in_grams: number,
   protein_in_grams: number,
-  fat_in_grams: number
+  fat_in_grams: number,
+  cals: number
 }
 
 function emptyMacroAmounts() : MacroAmounts {
   return {
     carbs_in_grams: 0,
     protein_in_grams: 0,
-    fat_in_grams: 0
+    fat_in_grams: 0,
+    cals: 0
   }
 }
 
@@ -92,7 +94,8 @@ export function macroTargets(user: User, withActivity: Boolean): MacroAmounts {
   return {
     carbs_in_grams: target * user.macros_target.carb_percentage / 4,
     protein_in_grams: target * user.macros_target.protein_percentage / 4,
-    fat_in_grams: target * user.macros_target.fat_percentage / 9
+    fat_in_grams: target * user.macros_target.fat_percentage / 9,
+    cals: target
   }
 }
 
