@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from '../firebase'
-import { Form, FormControl, ControlLabel, FormGroup, Button, Tab } from 'react-bootstrap'
+import { Table, Form, FormControl, ControlLabel, FormGroup, Button, Tab } from 'react-bootstrap'
 import { 
   Plan, 
   planFromSnapshot, 
@@ -75,49 +75,82 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
         if (user) {
           let mTargets = macroTargets(user, true)
           const marcroData = [
-            { name: 'Protein', actual: nutrition.protein, target: mTargets.protein_in_grams },
-            { name: 'Carbs', actual: nutrition.carbs, target: mTargets.carbs_in_grams },
-            { name: 'Fat', actual: nutrition.fat, target: mTargets.fat_in_grams }
+            { 
+              name: 'Protein', 
+              plan: Math.round(nutrition.protein), 
+              target: Math.round(mTargets.protein_in_grams),
+              diff: Math.round(mTargets.protein_in_grams - nutrition.protein)
+            },
+            { 
+              name: 'Carbs', 
+              plan: Math.round(nutrition.carbs), 
+              target: Math.round(mTargets.carbs_in_grams),
+              diff: Math.round(mTargets.carbs_in_grams - nutrition.carbs)
+            },
+            { 
+              name: 'Fat', 
+              plan: Math.round(nutrition.fat), 
+              target: Math.round(mTargets.fat_in_grams), 
+              diff: Math.round(mTargets.fat_in_grams - nutrition.fat)
+            }
           ]
           const calorieData = [
-            { name: 'Calories', actual: nutrition.cals, target: mTargets.cals },
+            { 
+              name: 'Calories', 
+              plan: Math.round(nutrition.cals),
+              target: Math.round(mTargets.cals),
+              diff: Math.round(mTargets.cals - nutrition.cals)
+            }
           ]
+          let planCellStyle = {
+            backgroundColor: '#8884d8',
+          }
+          let targetCellStyle = {
+            backgroundColor: '#82ca9d',
+          }
+          var rows = marcroData.map(d => {
+            return (
+              <tr>
+                <td>{d.name}</td>
+                <td style={planCellStyle}>{d.plan}g</td>
+                <td style={targetCellStyle}>{d.target}g</td>
+                <td>{d.diff}g</td>
+              </tr>
+            )
+          })
+          rows.push(
+            <tr>
+              <td>{calorieData[0].name}</td>
+              <td style={planCellStyle}>{calorieData[0].plan} kCal</td>
+              <td style={targetCellStyle}>{calorieData[0].target} kCal</td>
+              <td>{calorieData[0].diff} kCal</td>
+            </tr>
+          )
+          let tableStyle = {
+            width: 450
+          }
           planInfo.push(
             <div>
-              <table>
-                <tr>
-                  <th>Unit</th>
-                  <th>Plan</th>
-                  <th>Target</th>
-                </tr>
-                <tr>
-                  <td>Carbs</td>
-                  <td>{Math.round(nutrition.carbs)}g</td>
-                  <td>{Math.round(mTargets.carbs_in_grams)}g</td>
-                </tr>
-                <tr>
-                  <td>Protein</td>
-                  <td>{Math.round(nutrition.protein)}g</td>
-                  <td>{Math.round(mTargets.protein_in_grams)}g</td>
-                </tr>
-                <tr>
-                  <td>Fat</td>
-                  <td>{Math.round(nutrition.fat)}g</td>
-                  <td>{Math.round(mTargets.fat_in_grams)}g</td>
-                </tr>
-                <tr>
-                  <td>Calories</td>
-                  <td>{Math.round(nutrition.cals)}g</td>
-                  <td>{Math.round(mTargets.cals)}g</td>
-                </tr>
-              </table>
+              <Table style={tableStyle} responsive striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>Unit</th>
+                    <th>Plan</th>
+                    <th>Target</th>
+                    <th>Diff</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows}
+                </tbody>
+              </Table>
               <BarChart width={730} height={250} data={marcroData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="actual" fill="#8884d8" />
+                <Bar dataKey="plan" fill="#8884d8" />
                 <Bar dataKey="target" fill="#82ca9d" />
               </BarChart>
               <BarChart width={730} height={250} data={calorieData}>
@@ -126,7 +159,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="actual" fill="#8884d8" />
+                <Bar dataKey="plan" fill="#8884d8" />
                 <Bar dataKey="target" fill="#82ca9d" />
               </BarChart>
             </div>
