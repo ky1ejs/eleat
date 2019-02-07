@@ -125,7 +125,7 @@ class Login extends Component<ProfileProps, User> {
         <FormGroup>{' '}
           <ControlLabel>Activity</ControlLabel>
           <FormControl inputRef={(ref) => this.activitySelect = ref} componentClass="select" placeholder="select">
-            {allActivities.map(act => <option key={act} value={Activity[act]}>{Activity[act]}</option>)}
+            {allActivities.map(act => <option key={act} value={act}>{act}</option>)}
           </FormControl>
         </FormGroup>
       <h3>BMR + Activity: {targetCalsWithActivity}</h3>

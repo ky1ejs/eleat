@@ -103,11 +103,11 @@ export function macroTargets(user: User, withActivity: Boolean): MacroAmounts {
 // Extra active = 1.9
 
 export enum Activity {
-  sedentary,
-  light,
-  moderate,
-  high,
-  exceptional
+  sedentary = 'sedentary',
+  light = 'light',
+  moderate = 'moderate',
+  high = 'high',
+  exceptional = 'moderate'
 }
 
 export const allActivities: Activity[] = [
