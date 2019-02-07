@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import firebase from './firebase'
 import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
-import { User, userFromSnaption, saveUser, Sex, bmr } from './model'
+import { User, userFromSnaption, saveUser, Sex, bmr, macroTargets, allActivities, Activity } from './model'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -18,6 +18,7 @@ class Login extends Component<ProfileProps, User> {
   proteinTargetTF?: HTMLInputElement | undefined
   carbTargetTF?: HTMLInputElement | undefined
   fatTargetTF?: HTMLInputElement | undefined
+  activitySelect?: HTMLInputElement | undefined
   state: User = { firebase_ref: this.props.userRef }
 
   onUserUpdate = (snapshot: firebase.firestore.DocumentSnapshot) => {
@@ -63,6 +64,10 @@ class Login extends Component<ProfileProps, User> {
         fat_percentage: fat
       }
     }
+    if (this.activitySelect) { 
+      let act = this.activitySelect.value as keyof typeof Activity
+      newData.activity = Activity[act]
+    }
     newData.sex = Sex.Male
     saveUser(newData)
   }
@@ -86,6 +91,13 @@ class Login extends Component<ProfileProps, User> {
     let protein_target = (this.state.macros_target) ? String(this.state.macros_target.protein_percentage * 100) : undefined
     let carbs_target = (this.state.macros_target) ? String(this.state.macros_target.carb_percentage * 100) : undefined
     let fat_target = (this.state.macros_target) ? String(this.state.macros_target.fat_percentage * 100) : undefined
+    let targerMacroAmounts = macroTargets(this.state, true)
+    let targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams)
+    let targetProtein = Math.round(targerMacroAmounts.protein_in_grams)
+    let targetFat =  Math.round(targerMacroAmounts.fat_in_grams)
+    let targetCals = bmr(this.state, false)
+    let targetCalsWithActivity = bmr(this.state, true)
+    let totalCals = targetCalsWithActivity + (this.state.caloric_surplus || 0)
 
     return (
       <div>
@@ -105,11 +117,18 @@ class Login extends Component<ProfileProps, User> {
         <FormGroup>
           <DatePicker selected={date} onChange={this.onDateChange} />
         </FormGroup>{' '}
-      <h3>BMR: {bmr(this.state)}</h3>
+      <h3>BMR: {targetCals}</h3>
         <FormGroup>
           <ControlLabel>Surplus</ControlLabel>{' '}
           <FormControl defaultValue={calSurplus} inputRef={ref => { this.calSurplusTF = ref }} type="number" />
         </FormGroup>{' '}
+        <FormGroup>{' '}
+          <ControlLabel>Activity</ControlLabel>
+          <FormControl inputRef={(ref) => this.activitySelect = ref} componentClass="select" placeholder="select">
+            {allActivities.map(act => <option key={act} value={Activity[act]}>{Activity[act]}</option>)}
+          </FormControl>
+        </FormGroup>
+      <h3>BMR + Activity: {targetCalsWithActivity}</h3>
       <h4>Macros</h4>
         <FormGroup>
           <ControlLabel>Protein</ControlLabel>{' '}
@@ -126,6 +145,8 @@ class Login extends Component<ProfileProps, User> {
         <FormGroup>
           <Button type='submit'>Save</Button>
         </FormGroup>
+        <h4>Target Cals: {totalCals}</h4>
+        <h4>Protein = {targetProtein}g, Carbs = {targetCarbs}g, Fat = {targetFat}g</h4>
       </Form>
       </div>
     )
