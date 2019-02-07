@@ -12,6 +12,7 @@ import {
 } from '../model'
 import MealComp from './Meal'
 import { User } from '../model';
+import { Bar, Legend, Tooltip, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 
 interface PlanDetailState {
   plan?: Plan,
@@ -73,34 +74,62 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
       if (nutrition) {
         if (user) {
           let mTargets = macroTargets(user, true)
+          const marcroData = [
+            { name: 'Protein', actual: nutrition.protein, target: mTargets.protein_in_grams },
+            { name: 'Carbs', actual: nutrition.carbs, target: mTargets.carbs_in_grams },
+            { name: 'Fat', actual: nutrition.fat, target: mTargets.fat_in_grams }
+          ]
+          const calorieData = [
+            { name: 'Calories', actual: nutrition.cals, target: mTargets.cals },
+          ]
           planInfo.push(
-            <table>
-              <tr>
-                <th>Unit</th>
-                <th>Plan</th>
-                <th>Target</th>
-              </tr>
-              <tr>
-                <td>Carbs</td>
-                <td>{Math.round(nutrition.carbs)}g</td>
-                <td>{Math.round(mTargets.carbs_in_grams)}g</td>
-              </tr>
-              <tr>
-                <td>Protein</td>
-                <td>{Math.round(nutrition.protein)}g</td>
-                <td>{Math.round(mTargets.protein_in_grams)}g</td>
-              </tr>
-              <tr>
-                <td>Fat</td>
-                <td>{Math.round(nutrition.fat)}g</td>
-                <td>{Math.round(mTargets.fat_in_grams)}g</td>
-              </tr>
-              <tr>
-                <td>Calories</td>
-                <td>{Math.round(nutrition.cals)}g</td>
-                <td>{Math.round(mTargets.cals)}g</td>
-              </tr>
-            </table>
+            <div>
+              <table>
+                <tr>
+                  <th>Unit</th>
+                  <th>Plan</th>
+                  <th>Target</th>
+                </tr>
+                <tr>
+                  <td>Carbs</td>
+                  <td>{Math.round(nutrition.carbs)}g</td>
+                  <td>{Math.round(mTargets.carbs_in_grams)}g</td>
+                </tr>
+                <tr>
+                  <td>Protein</td>
+                  <td>{Math.round(nutrition.protein)}g</td>
+                  <td>{Math.round(mTargets.protein_in_grams)}g</td>
+                </tr>
+                <tr>
+                  <td>Fat</td>
+                  <td>{Math.round(nutrition.fat)}g</td>
+                  <td>{Math.round(mTargets.fat_in_grams)}g</td>
+                </tr>
+                <tr>
+                  <td>Calories</td>
+                  <td>{Math.round(nutrition.cals)}g</td>
+                  <td>{Math.round(mTargets.cals)}g</td>
+                </tr>
+              </table>
+              <BarChart width={730} height={250} data={marcroData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="actual" fill="#8884d8" />
+                <Bar dataKey="target" fill="#82ca9d" />
+              </BarChart>
+              <BarChart width={730} height={250} data={calorieData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="actual" fill="#8884d8" />
+                <Bar dataKey="target" fill="#82ca9d" />
+              </BarChart>
+            </div>
           )
         } else {
           planInfo.push(<h4>Protein: {Math.round(nutrition.protein)}g</h4>)
