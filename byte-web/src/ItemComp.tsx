@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Item, saveItem, saveNewItem } from './model'
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 interface ItemCompProps {
   item?: Item
@@ -37,29 +37,29 @@ export default class ItemComp extends Component<ItemCompProps> {
     let fat_per_gram = this.props.item && this.props.item.fat_per_gram || 0
     return (
       <Form inline onSubmit={this.save}>
-        <FormGroup>
-          <ControlLabel>Name</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.nameTF = ref }} type="text" defaultValue={name} />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Measure Name</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.measureNameTF = ref }} type="text" defaultValue={measureName} />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Protein</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.proteinTF = ref }} type="text" defaultValue={String(protein_per_gram)} />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Fat</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.fatTF = ref }} type="text" defaultValue={String(fat_per_gram)} />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Carbs</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.carbsTF = ref }} type="text" defaultValue={String(carbs_per_gram)} />
-        </FormGroup>{' '}
-        <FormGroup>
+        <Form.Group>
+          <Form.Label>Name</Form.Label>{' '}
+          <Form.Control ref={ref => { this.nameTF = ref }} type="text" defaultValue={name} />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Measure Name</Form.Label>{' '}
+          <Form.Control ref={ref => { this.measureNameTF = ref }} type="text" defaultValue={measureName} />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Protein</Form.Label>{' '}
+          <Form.Control ref={ref => { this.proteinTF = ref }} type="text" defaultValue={String(protein_per_gram)} />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Fat</Form.Label>{' '}
+          <Form.Control ref={ref => { this.fatTF = ref }} type="text" defaultValue={String(fat_per_gram)} />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Carbs</Form.Label>{' '}
+          <Form.Control ref={ref => { this.carbsTF = ref }} type="text" defaultValue={String(carbs_per_gram)} />
+        </Form.Group>{' '}
+        <Form.Group>
           Calories
-        </FormGroup>{' '}
+        </Form.Group>{' '}
         <Button type="submit">Save</Button>
       </Form>
     )

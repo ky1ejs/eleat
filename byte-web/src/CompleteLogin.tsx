@@ -3,7 +3,7 @@ import firebase from './firebase'
 
 class CompleteLogin extends Component {
 
-  async componentDidMount() {
+  componentDidMount() {
     try {
       const url = window.location.href
       if (firebase.auth().isSignInWithEmailLink(url)) {
@@ -15,9 +15,12 @@ class CompleteLogin extends Component {
         }
 
         // Signin user and remove the email localStorage
-        const result = await firebase.auth().signInWithEmailLink(email!, url)
-        window.localStorage.removeItem('emailForSignIn')
-        console.log('loggedIn')
+        firebase.auth().signInWithEmailLink(email!, url)
+          .then(result => {
+            window.localStorage.removeItem('emailForSignIn')
+            console.log('loggedIn')
+            console.log(result)
+          })
       }
     } catch (err) {
       console.log(err)
@@ -27,6 +30,7 @@ class CompleteLogin extends Component {
   render() {
     return (
       <div>
+        hello
       </div>
     )
   }

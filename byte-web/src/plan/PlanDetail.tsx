@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from '../firebase'
-import { Table, Form, FormControl, ControlLabel, FormGroup, Button, Tab } from 'react-bootstrap'
+import { Table, Form, Button, Tab } from 'react-bootstrap'
 import { 
   Plan, 
   planFromSnapshot, 
@@ -54,7 +54,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
     if (this.planUnsubscribe) { this.planUnsubscribe() }
   }
 
-  addClick = (e: FormEvent<Form>) => {
+  addClick = (e: FormEvent) => {
     e.preventDefault()
     let plan = this.state.plan
     if (plan) {
@@ -186,10 +186,10 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState>  {
         </div>
         <div>
           <Form inline onSubmit={this.addClick}>
-            <FormGroup>
-              <ControlLabel>Meal Name</ControlLabel>{' '}
-              <FormControl inputRef={(ref) => this.mealNameTF = ref} type='text' />
-            </FormGroup>{' '}
+            <Form.Group>
+              <Form.Label>Meal Name</Form.Label>{' '}
+              <Form.Control ref={(ref) => this.mealNameTF = ref} type='text' />
+            </Form.Group>{' '}
             <Button type="submit">Save</Button>
           </Form>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import firebase from '../firebase'
-import { Form, ControlLabel, FormGroup, Button, FormControl } from 'react-bootstrap'
+import { Button, Form } from 'react-bootstrap'
 import { Serving, Item, Plan, savePlan, itemFromSnapshot } from '../model'
 
 interface ServingCompProps {
@@ -47,7 +47,7 @@ class ServingComp extends Component<ServingCompProps, ServingCompState> {
       let carbs = item.carbs_per_gram * serving.grams
       let calories = (protein * 4) + (fat * 9) + (carbs * 4)
       rows.push(<td>{item.name}</td>)
-      rows.push(<td><FormControl type='text' defaultValue={String(this.serving().grams)} /></td>)
+      rows.push(<td><Form.Control type='text' defaultValue={String(this.serving().grams)} /></td>)
       rows.push(<td>{Math.round(protein)}g</td>)
       rows.push(<td>{Math.round(fat)}g</td>)
       rows.push(<td>{Math.round(carbs)}g</td>)
@@ -65,4 +65,4 @@ class ServingComp extends Component<ServingCompProps, ServingCompState> {
   }
 }
 
-export default ServingComp
+export default ServingComp;

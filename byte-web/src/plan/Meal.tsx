@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from '../firebase'
-import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { Item, Meal, Plan, savePlan, itemFromSnapshot, Nutrition } from '../model'
 import ServingComp from './Serving'
 
@@ -67,16 +67,16 @@ class MealComp extends Component<MealCompProps, MealCompState> {
           {servings}
         </table>
         <Form inline onSubmit={this.addClick}>
-          <FormGroup>
-            <FormGroup controlId="formControlsSelect">
-              <ControlLabel>Select</ControlLabel>
-              <FormControl inputRef={(ref) => this.itemSelect = ref} componentClass="select" placeholder="select">
+          <Form.Group>
+            <Form.Group controlId="Form.ControlsSelect">
+              <Form.Label>Select</Form.Label>
+              <Form.Control ref={(ref) => this.itemSelect = ref} as="select" placeholder="select">
                 {this.state.items.map(item => <option key={item.firestoreRef.id} value={item.firestoreRef.id}>{item.name}</option>)}
-              </FormControl>
-            </FormGroup>
-            <ControlLabel>Grams</ControlLabel>{' '}
-            <FormControl inputRef={(ref) => this.gramsTF = ref} type='text' />
-          </FormGroup>{' '}
+              </Form.Control>
+            </Form.Group>
+            <Form.Label>Grams</Form.Label>{' '}
+            <Form.Control ref={(ref) => this.gramsTF = ref} type='text' />
+          </Form.Group>{' '}
           <Button type="submit">Save</Button>
         </Form>
       </div>

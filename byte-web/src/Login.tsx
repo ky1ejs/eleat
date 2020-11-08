@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import firebase from './firebase'
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 
 class Login extends Component {
   emailTF: HTMLInputElement | undefined
@@ -32,10 +32,10 @@ class Login extends Component {
   render() {
     return (
       <Form inline onSubmit={this.login}>
-        <FormGroup>
-          <ControlLabel>Email</ControlLabel>{' '}
-          <FormControl inputRef={ref => { this.emailTF = ref }} type="email" />
-        </FormGroup>{' '}
+        <Form.Group>
+          <Form.Label>Email</Form.Label>{' '}
+          <Form.Control ref={ref => { this.emailTF = ref }} type="email" />
+        </Form.Group>{' '}
         <Button type="submit">Save</Button>
       </Form>
     )

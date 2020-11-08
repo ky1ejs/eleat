@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import firebase from './firebase'
-import { Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { User, userFromSnaption, saveUser, Sex, bmr, macroTargets, allActivities, Activity } from './model'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
@@ -102,49 +102,49 @@ class Login extends Component<ProfileProps, User> {
     return (
       <div>
       <Form inline onSubmit={this.save}>
-        <FormGroup>
-          <ControlLabel>Username</ControlLabel>{' '}
-          <FormControl defaultValue={username} inputRef={ref => { this.usernameTF = ref }} type="text" />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Height</ControlLabel>{' '}
-          <FormControl defaultValue={height} inputRef={ref => { this.heightTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Weight</ControlLabel>{' '}
-          <FormControl defaultValue={weight} inputRef={ref => { this.weightTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>
+        <Form.Group>
+          <Form.Label>Username</Form.Label>{' '}
+          <Form.Control defaultValue={username} ref={ref => { this.usernameTF = ref }} type="text" />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Height</Form.Label>{' '}
+          <Form.Control defaultValue={height} ref={ref => { this.heightTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Weight</Form.Label>{' '}
+          <Form.Control defaultValue={weight} ref={ref => { this.weightTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>
           <DatePicker selected={date} onChange={this.onDateChange} />
-        </FormGroup>{' '}
+        </Form.Group>{' '}
       <h3>BMR: {targetCals}</h3>
-        <FormGroup>
-          <ControlLabel>Surplus</ControlLabel>{' '}
-          <FormControl defaultValue={calSurplus} inputRef={ref => { this.calSurplusTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>{' '}
-          <ControlLabel>Activity</ControlLabel>
-          <FormControl inputRef={(ref) => this.activitySelect = ref} componentClass="select" placeholder="select">
+        <Form.Group>
+          <Form.Label>Surplus</Form.Label>{' '}
+          <Form.Control defaultValue={calSurplus} ref={ref => { this.calSurplusTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>{' '}
+          <Form.Label>Activity</Form.Label>
+          <Form.Control ref={(ref) => this.activitySelect = ref} as="select" placeholder="select">
             {allActivities.map(act => <option key={act} value={act}>{act}</option>)}
-          </FormControl>
-        </FormGroup>
+          </Form.Control>
+        </Form.Group>
       <h3>BMR + Activity: {targetCalsWithActivity}</h3>
       <h4>Macros</h4>
-        <FormGroup>
-          <ControlLabel>Protein</ControlLabel>{' '}
-          <FormControl defaultValue={protein_target} inputRef={ref => { this.proteinTargetTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Carbs</ControlLabel>{' '}
-          <FormControl defaultValue={carbs_target} inputRef={ref => { this.carbTargetTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>
-          <ControlLabel>Fat</ControlLabel>{' '}
-          <FormControl defaultValue={fat_target} inputRef={ref => { this.fatTargetTF = ref }} type="number" />
-        </FormGroup>{' '}
-        <FormGroup>
+        <Form.Group>
+          <Form.Label>Protein</Form.Label>{' '}
+          <Form.Control defaultValue={protein_target} ref={ref => { this.proteinTargetTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Carbs</Form.Label>{' '}
+          <Form.Control defaultValue={carbs_target} ref={ref => { this.carbTargetTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>
+          <Form.Label>Fat</Form.Label>{' '}
+          <Form.Control defaultValue={fat_target} ref={ref => { this.fatTargetTF = ref }} type="number" />
+        </Form.Group>{' '}
+        <Form.Group>
           <Button type='submit'>Save</Button>
-        </FormGroup>
+        </Form.Group>
         <h4>Target Cals: {totalCals}</h4>
         <h4>Protein = {targetProtein}g, Carbs = {targetCarbs}g, Fat = {targetFat}g</h4>
       </Form>

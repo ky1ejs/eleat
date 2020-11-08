@@ -1,7 +1,7 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
 import { Link } from 'react-router-dom'
-import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import * as Model from './model/'
 
 interface ScheduleTableProps { userId: string }
@@ -38,10 +38,10 @@ class PlanTable extends Component<ScheduleTableProps, ScheduleTableState>  {
       <div>
         {this.state.schedules.map(schedule => <ScheduleComp key={schedule.firebaseRef.id} {...schedule} />)}
         <Form inline onSubmit={this.addClick}>
-          <FormGroup>
-            <ControlLabel>Name</ControlLabel>{' '}
-            <FormControl inputRef={(ref) => this.nameTF = ref} type='text' />
-          </FormGroup>{' '}
+          <Form.Group>
+            <Form.Label>Name</Form.Label>{' '}
+            <Form.Control ref={(ref) => this.nameTF = ref} type='text' />
+          </Form.Group>{' '}
           <Button type="submit">Save</Button>
         </Form>
       </div>
@@ -58,9 +58,9 @@ class ScheduleComp extends Component<Model.Schedule> {
     return (
       <div>
         <Form inline>
-          <FormGroup>
-            <ControlLabel>{this.props.name}</ControlLabel>{' '}
-          </FormGroup>{' '}
+          <Form.Group>
+            <Form.Label>{this.props.name}</Form.Label>{' '}
+          </Form.Group>{' '}
           <Button type="submit">
             <Link to={'schedule/' + this.props.firebaseRef.id}>
               View

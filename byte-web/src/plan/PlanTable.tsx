@@ -1,7 +1,7 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from '../firebase'
 import { Link } from 'react-router-dom'
-import { Form, FormGroup, Button, ControlLabel, FormControl } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { Plan, planFromSnapshot, savePlan } from '../model'
 
 interface PlanProps { userId: string }
@@ -39,10 +39,10 @@ class PlanTable extends Component<PlanProps, PlanTableState>  {
       <div>
         { this.state.plans.map(plan => <PlanComp key={plan.firebaseRef.id} { ...plan } />) }
         <Form inline onSubmit={this.addClick}>
-          <FormGroup>
-            <ControlLabel>Name</ControlLabel>{' '}
-            <FormControl inputRef={(ref) => this.nameTF = ref} type='text' />
-          </FormGroup>{' '}
+          <Form.Group>
+            <Form.Label>Name</Form.Label>{' '}
+            <Form.Control ref={(ref) => this.nameTF = ref} type='text' />
+          </Form.Group>{' '}
           <Button type="submit">Save</Button>
         </Form>
       </div>
@@ -67,9 +67,9 @@ class PlanComp extends Component<Plan> {
     return (
       <div>
         <Form inline>
-          <FormGroup>
-            <ControlLabel>{this.props.name}</ControlLabel>{' '}
-          </FormGroup>{' '}
+          <Form.Group>
+            <Form.Label>{this.props.name}</Form.Label>{' '}
+          </Form.Group>{' '}
           <Button type="submit">
             <Link to={'plan/' + this.props.firebaseRef.id}>
               View

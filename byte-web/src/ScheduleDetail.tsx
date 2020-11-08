@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import firebase from './firebase'
-import { Form, FormControl, ControlLabel, FormGroup, Button } from 'react-bootstrap'
+import { Form, Button } from 'react-bootstrap'
 import { ShoppingListItem, generateShoppingListForPlans, Schedule, Plan, plansForUser, scheduleFromSnapshot, saveSchedule, planFromSnapshot, Nutrition } from './model'
 
 interface ScheduleDetailState {
@@ -87,12 +87,12 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
       <div>
         {plans}
         <Form inline onSubmit={this.addClick}>
-          <FormGroup>
-            <ControlLabel>Select</ControlLabel>
-            <FormControl inputRef={(ref) => this.planSelect = ref} componentClass="select" placeholder="select">
+          <Form.Group>
+            <Form.Label>Select</Form.Label>
+            <Form.Control ref={(ref) => this.planSelect = ref} as="select" placeholder="select">
               {this.state.plans.map(plan => <option key={plan.firebaseRef.id} value={plan.firebaseRef.path}>{plan.name}</option>)}
-            </FormControl>
-          </FormGroup>{' '}
+            </Form.Control>
+          </Form.Group>{' '}
           <Button type="submit">Save</Button>
         </Form>
         <br />
