@@ -1,6 +1,6 @@
-import { Serving } from './Serving'
+import {Serving} from "./Serving";
 
 export interface Meal {
-  name: string,
-  servings: Serving[]
+  name: string;
+  servings: Serving[];
 }
