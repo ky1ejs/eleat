@@ -23,7 +23,7 @@ interface PlanDetailProps {
   plan_ref: firebase.firestore.DocumentReference;
 }
 class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
-  planUnsubscribe?: Function = undefined;
+  planUnsubscribe?: () => void;
   mealNameTF: HTMLInputElement | undefined;
   state: PlanDetailState = {
     plan: undefined,
@@ -32,7 +32,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
   };
 
   onPlanUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
-    let plan = planFromSnapshot(querySnapshot);
+    const plan = planFromSnapshot(querySnapshot);
     this.setState({plan});
     calculateNutritionForPlan(plan).then((nutrition) => {
       this.setState({nutrition});
@@ -42,7 +42,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
   componentDidMount() {
     this.planUnsubscribe = this.props.plan_ref.onSnapshot(this.onPlanUpdate);
 
-    let currentUser = firebase.auth().currentUser;
+    const currentUser = firebase.auth().currentUser;
     if (!currentUser) {
       return;
     }
@@ -52,7 +52,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
       .doc(currentUser.uid)
       .get()
       .then((snapshot) => {
-        let user = userFromSnaption(snapshot);
+        const user = userFromSnaption(snapshot);
         this.setState({user});
       });
   }
@@ -65,7 +65,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
 
   addClick = (e: FormEvent) => {
     e.preventDefault();
-    let plan = this.state.plan;
+    const plan = this.state.plan;
     if (plan) {
       plan.meals.push({name: this.mealNameTF!.value, servings: []});
       savePlan(plan);
@@ -73,16 +73,16 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
   };
 
   render() {
-    let plan = this.state.plan;
-    let user = this.state.user;
-    var planInfo: JSX.Element[] = [];
-    var meals: JSX.Element[] = [];
+    const plan = this.state.plan;
+    const user = this.state.user;
+    const planInfo: JSX.Element[] = [];
+    const meals: JSX.Element[] = [];
     if (plan) {
       planInfo.push(<h2>{plan.name}</h2>);
-      let nutrition = this.state.nutrition;
+      const nutrition = this.state.nutrition;
       if (nutrition) {
         if (user) {
-          let mTargets = macroTargets(user, true);
+          const mTargets = macroTargets(user, true);
           const marcroData = [
             {
               name: "Protein",
@@ -111,15 +111,15 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
               diff: Math.round(mTargets.cals - nutrition.cals)
             }
           ];
-          let planCellStyle = {
+          const planCellStyle = {
             backgroundColor: "#8884d8"
           };
-          let targetCellStyle = {
+          const targetCellStyle = {
             backgroundColor: "#82ca9d"
           };
-          var rows = marcroData.map((d) => {
+          const rows = marcroData.map((d) => {
             return (
-              <tr>
+              <tr key={d.name}>
                 <td>{d.name}</td>
                 <td style={planCellStyle}>{d.plan}g</td>
                 <td style={targetCellStyle}>{d.target}g</td>
@@ -135,7 +135,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
               <td>{calorieData[0].diff} kCal</td>
             </tr>
           );
-          let tableStyle = {
+          const tableStyle = {
             width: 450
           };
           planInfo.push(
@@ -179,7 +179,7 @@ class PlanDetail extends Component<PlanDetailProps, PlanDetailState> {
         }
       }
 
-      for (var i = 0; i < plan.meals.length; i++) {
+      for (let i = 0; i < plan.meals.length; i++) {
         meals.push(<MealComp key={i} plan={plan} mealIndex={i} />);
       }
     }

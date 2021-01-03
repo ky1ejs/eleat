@@ -18,7 +18,7 @@ interface ProfileProps {
   userRef: firebase.firestore.DocumentReference;
 }
 class Login extends Component<ProfileProps, User> {
-  userSubscription?: Function;
+  userSubscription?: () => void;
   usernameTF: HTMLInputElement | undefined;
   dobPicker?: HTMLInputElement | undefined;
   heightTF?: HTMLInputElement | undefined;
@@ -31,7 +31,7 @@ class Login extends Component<ProfileProps, User> {
   state: User = {firebase_ref: this.props.userRef};
 
   onUserUpdate = (snapshot: firebase.firestore.DocumentSnapshot) => {
-    let user = userFromSnaption(snapshot);
+    const user = userFromSnaption(snapshot);
     this.setState({...user});
   };
 
@@ -47,7 +47,7 @@ class Login extends Component<ProfileProps, User> {
 
   save = (e: any) => {
     e.preventDefault();
-    var newData: User = {
+    const newData: User = {
       firebase_ref: this.state.firebase_ref,
       dob: this.state.dob
     };
@@ -55,22 +55,22 @@ class Login extends Component<ProfileProps, User> {
       newData.username = this.usernameTF.value;
     }
     if (this.heightTF) {
-      let cms = parseInt(this.heightTF.value, 10);
-      let mms = cms * 100;
+      const cms = parseInt(this.heightTF.value, 10);
+      const mms = cms * 100;
       newData.height_in_milimeters = mms;
     }
     if (this.weightTF) {
-      let kgs = parseInt(this.weightTF.value, 10);
-      let grams = kgs * 1000;
+      const kgs = parseInt(this.weightTF.value, 10);
+      const grams = kgs * 1000;
       newData.weight_in_grams = grams;
     }
     if (this.calSurplusTF) {
       newData.caloric_surplus = parseInt(this.calSurplusTF.value, 10);
     }
     if (this.proteinTargetTF && this.carbTargetTF && this.fatTargetTF) {
-      let protein = parseInt(this.proteinTargetTF.value, 10) / 100;
-      let carbs = parseInt(this.carbTargetTF.value, 10) / 100;
-      let fat = parseInt(this.fatTargetTF.value, 10) / 100;
+      const protein = parseInt(this.proteinTargetTF.value, 10) / 100;
+      const carbs = parseInt(this.carbTargetTF.value, 10) / 100;
+      const fat = parseInt(this.fatTargetTF.value, 10) / 100;
       newData.macros_target = {
         protein_percentage: protein,
         carb_percentage: carbs,
@@ -78,7 +78,7 @@ class Login extends Component<ProfileProps, User> {
       };
     }
     if (this.activitySelect) {
-      let act = this.activitySelect.value as keyof typeof Activity;
+      const act = this.activitySelect.value as keyof typeof Activity;
       newData.activity = Activity[act];
     }
     newData.sex = Sex.Male;
@@ -87,38 +87,40 @@ class Login extends Component<ProfileProps, User> {
 
   onDateChange = (date: Date) => {
     if (!date) {
-      let dob = undefined;
+      const dob = undefined;
       this.setState({dob});
     } else {
-      let dob = firebase.firestore.Timestamp.fromDate(date);
+      const dob = firebase.firestore.Timestamp.fromDate(date);
       this.setState({dob});
     }
   };
 
   render() {
-    let username = this.state.username;
-    let date = this.state.dob && this.state.dob.toDate();
-    let height = this.state.height_in_milimeters
+    const username = this.state.username;
+    const date = this.state.dob && this.state.dob.toDate();
+    const height = this.state.height_in_milimeters
       ? String(this.state.height_in_milimeters / 100)
       : undefined;
-    let weight = this.state.weight_in_grams ? String(this.state.weight_in_grams / 1000) : undefined;
-    let calSurplus = this.state.caloric_surplus ? String(this.state.caloric_surplus) : undefined;
-    let protein_target = this.state.macros_target
+    const weight = this.state.weight_in_grams
+      ? String(this.state.weight_in_grams / 1000)
+      : undefined;
+    const calSurplus = this.state.caloric_surplus ? String(this.state.caloric_surplus) : undefined;
+    const protein_target = this.state.macros_target
       ? String(this.state.macros_target.protein_percentage * 100)
       : undefined;
-    let carbs_target = this.state.macros_target
+    const carbs_target = this.state.macros_target
       ? String(this.state.macros_target.carb_percentage * 100)
       : undefined;
-    let fat_target = this.state.macros_target
+    const fat_target = this.state.macros_target
       ? String(this.state.macros_target.fat_percentage * 100)
       : undefined;
-    let targerMacroAmounts = macroTargets(this.state, true);
-    let targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams);
-    let targetProtein = Math.round(targerMacroAmounts.protein_in_grams);
-    let targetFat = Math.round(targerMacroAmounts.fat_in_grams);
-    let targetCals = bmr(this.state, false);
-    let targetCalsWithActivity = bmr(this.state, true);
-    let totalCals = targetCalsWithActivity + (this.state.caloric_surplus || 0);
+    const targerMacroAmounts = macroTargets(this.state, true);
+    const targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams);
+    const targetProtein = Math.round(targerMacroAmounts.protein_in_grams);
+    const targetFat = Math.round(targerMacroAmounts.fat_in_grams);
+    const targetCals = bmr(this.state, false);
+    const targetCalsWithActivity = bmr(this.state, true);
+    const totalCals = targetCalsWithActivity + (this.state.caloric_surplus || 0);
 
     return (
       <div>

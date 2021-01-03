@@ -13,15 +13,15 @@ interface ScheduleTableState {
 class PlanTable extends Component<ScheduleTableProps, ScheduleTableState> {
   ref = Model.schedulesForUser(this.props.userId);
   nameTF: HTMLInputElement | undefined;
-  unsubscribe?: Function = undefined;
+  unsubscribe?: () => void;
   state: ScheduleTableState = {schedules: []};
 
   onCollectionUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let schedules = querySnapshot.docs.map(Model.scheduleFromSnapshot);
+    const schedules = querySnapshot.docs.map(Model.scheduleFromSnapshot);
     this.setState({schedules});
   };
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
   }
 
@@ -33,7 +33,7 @@ class PlanTable extends Component<ScheduleTableProps, ScheduleTableState> {
 
   addClick = (e: FormEvent) => {
     e.preventDefault();
-    let name = this.nameTF!.value;
+    const name = this.nameTF!.value;
     if (name.length > 0) {
       this.ref.add({name});
     }

@@ -15,7 +15,7 @@ interface MealCompState {
 class MealComp extends Component<MealCompProps, MealCompState> {
   itemSelect: HTMLInputElement | undefined;
   gramsTF: HTMLInputElement | undefined;
-  itemUnsubscribe?: Function = undefined;
+  itemUnsubscribe?: () => void;
   state: MealCompState = {items: [], nutrition: undefined};
 
   meal(): Meal {
@@ -23,14 +23,14 @@ class MealComp extends Component<MealCompProps, MealCompState> {
   }
 
   onItemsUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let items = querySnapshot.docs.map(itemFromSnapshot);
+    const items = querySnapshot.docs.map(itemFromSnapshot);
     this.setState({items});
   };
 
   addClick = (e: FormEvent) => {
     e.preventDefault();
-    let item_ref = firebase.firestore().collection("items").doc(this.itemSelect!.value);
-    let grams = Number(this.gramsTF!.value);
+    const item_ref = firebase.firestore().collection("items").doc(this.itemSelect!.value);
+    const grams = Number(this.gramsTF!.value);
     this.meal().servings.push({grams, item_ref});
     savePlan(this.props.plan);
   };
@@ -46,8 +46,8 @@ class MealComp extends Component<MealCompProps, MealCompState> {
   }
 
   render() {
-    var servings: JSX.Element[] = [];
-    for (var i = 0; i < this.meal().servings.length; i++) {
+    const servings: JSX.Element[] = [];
+    for (let i = 0; i < this.meal().servings.length; i++) {
       servings.push(
         <ServingComp
           key={this.meal().servings[i].item_ref.id}

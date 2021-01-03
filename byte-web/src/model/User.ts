@@ -24,7 +24,7 @@ export interface User {
 }
 
 export function saveUser(user: User) {
-  let ref = user.firebase_ref;
+  const ref = user.firebase_ref;
   delete user.firebase_ref;
   if (!user.height_in_milimeters || user.height_in_milimeters <= 0) {
     delete user.height_in_milimeters;
@@ -64,16 +64,16 @@ export function saveUser(user: User) {
 }
 
 export function userFromSnaption(snapshot: firebase.firestore.DocumentSnapshot): User {
-  let data = snapshot.data();
+  const data = snapshot.data();
   if (data) {
-    var user: User = {...data, firebase_ref: snapshot.ref};
+    const user: User = {...data, firebase_ref: snapshot.ref};
     return user;
   } else {
     throw new Error("Where's the data mate?");
   }
 }
 
-export function bmr(user: User, withActivity: Boolean): number {
+export function bmr(user: User, withActivity: boolean): number {
   if (!user.dob) {
     return 0;
   }
@@ -83,10 +83,10 @@ export function bmr(user: User, withActivity: Boolean): number {
   if (!user.height_in_milimeters) {
     return 0;
   }
-  var diff = Math.abs(user.dob.toDate().getTime() - new Date().getTime());
-  var years = Math.ceil(diff / (1000 * 3600 * 24 * 365));
+  const diff = Math.abs(user.dob.toDate().getTime() - new Date().getTime());
+  const years = Math.ceil(diff / (1000 * 3600 * 24 * 365));
   // Mifflin-St Jeor Equation - https://www.calculator.net/bmr-calculator.html
-  var base =
+  let base =
     (user.weight_in_grams / 1000) * 10 + (user.height_in_milimeters / 100) * 6.25 - years * 5 + 5;
   if (withActivity && user.activity) {
     base = base * multiplerForActivity(user.activity);
@@ -110,16 +110,16 @@ function emptyMacroAmounts(): MacroAmounts {
   };
 }
 
-export function macroTargets(user: User, withActivity: Boolean): MacroAmounts {
-  let bmrAmount = bmr(user, withActivity);
+export function macroTargets(user: User, withActivity: boolean): MacroAmounts {
+  const bmrAmount = bmr(user, withActivity);
   if (bmrAmount <= 0) {
     return emptyMacroAmounts();
   }
   if (!user.macros_target) {
     return emptyMacroAmounts();
   }
-  let surplus = user.caloric_surplus || 0;
-  let target = bmrAmount + surplus;
+  const surplus = user.caloric_surplus || 0;
+  const target = bmrAmount + surplus;
   return {
     carbs_in_grams: (target * user.macros_target.carb_percentage) / 4,
     protein_in_grams: (target * user.macros_target.protein_percentage) / 4,

@@ -10,7 +10,7 @@ export interface Item {
 }
 
 export function itemFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot): Item {
-  let data = snapshot.data();
+  const data = snapshot.data();
   if (data) {
     return {
       firestoreRef: snapshot.ref,
@@ -26,7 +26,7 @@ export function itemFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot):
 }
 
 export function saveItem(item: Item) {
-  var itemData = {...item};
+  const itemData = {...item};
   delete itemData.firestoreRef;
   item.firestoreRef.set(itemData);
 }

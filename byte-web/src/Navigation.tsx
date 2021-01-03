@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {NavLink} from "react-router-dom";
 import {Navbar, NavItem, Nav} from "react-bootstrap";
 
-class Navigation extends Component<{}> {
+class Navigation extends Component {
   render() {
     return (
       <Navbar>

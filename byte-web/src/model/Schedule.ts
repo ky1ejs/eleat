@@ -11,9 +11,9 @@ export function schedulesForUser(userId: string): firebase.firestore.CollectionR
 }
 
 export function scheduleFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot): Schedule {
-  let data = snapshot.data();
+  const data = snapshot.data();
   if (data) {
-    let plans = data.plans || [];
+    const plans = data.plans || [];
     return {
       firebaseRef: snapshot.ref,
       name: data.name,
@@ -25,7 +25,7 @@ export function scheduleFromSnapshot(snapshot: firebase.firestore.DocumentSnapsh
 }
 
 export function saveSchedule(schecule: Schedule) {
-  var scheduleData = {...schecule};
+  const scheduleData = {...schecule};
   delete scheduleData.firebaseRef;
   schecule.firebaseRef.set(scheduleData);
 }

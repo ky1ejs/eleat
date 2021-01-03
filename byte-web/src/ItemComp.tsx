@@ -14,7 +14,7 @@ export default class ItemComp extends Component<ItemCompProps> {
 
   save = (e: any) => {
     e.preventDefault();
-    let item = this.props.item;
+    const item = this.props.item;
     const newItem = {
       name: this.nameTF!.value,
       measure_name: this.measureNameTF!.value,
@@ -30,11 +30,11 @@ export default class ItemComp extends Component<ItemCompProps> {
   };
 
   render() {
-    let name = (this.props.item && this.props.item.name) || "";
-    let measureName = (this.props.item && this.props.item.measure_name) || "";
-    let protein_per_gram = (this.props.item && this.props.item.protein_per_gram) || 0;
-    let carbs_per_gram = (this.props.item && this.props.item.carbs_per_gram) || 0;
-    let fat_per_gram = (this.props.item && this.props.item.fat_per_gram) || 0;
+    const name = (this.props.item && this.props.item.name) || "";
+    const measureName = (this.props.item && this.props.item.measure_name) || "";
+    const protein_per_gram = (this.props.item && this.props.item.protein_per_gram) || 0;
+    const carbs_per_gram = (this.props.item && this.props.item.carbs_per_gram) || 0;
+    const fat_per_gram = (this.props.item && this.props.item.fat_per_gram) || 0;
     return (
       <Form inline onSubmit={this.save}>
         <Form.Group>

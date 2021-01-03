@@ -9,7 +9,7 @@ class Login extends Component {
     e.preventDefault();
 
     const url = window.location.href + "/complete";
-    var actionCodeSettings = {
+    const actionCodeSettings = {
       url: url,
       handleCodeInApp: true
     };

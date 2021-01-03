@@ -13,11 +13,11 @@ interface PlanTableState {
 class PlanTable extends Component<PlanProps, PlanTableState> {
   ref = firebase.firestore().collection("users/" + this.props.userId + "/plans");
   nameTF: HTMLInputElement | undefined;
-  unsubscribe?: Function = undefined;
+  unsubscribe?: () => void;
   state: {plans: Plan[]} = {plans: []};
 
   onCollectionUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let plans = querySnapshot.docs.map(planFromSnapshot);
+    const plans = querySnapshot.docs.map(planFromSnapshot);
     this.setState({plans});
   };
 
@@ -31,10 +31,10 @@ class PlanTable extends Component<PlanProps, PlanTableState> {
     }
   }
 
-  addClick = (e: FormEvent<Form>) => {
+  addClick = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let name = this.nameTF!.value;
-    let isPublic = false;
+    const name = this.nameTF!.value;
+    const isPublic = false;
     if (name.length > 0) {
       this.ref.add({name, isPublic});
     }
@@ -64,7 +64,7 @@ class PlanComp extends Component<Plan> {
   };
 
   duplicate = () => {
-    let name = this.props.name + " Copy";
+    const name = this.props.name + " Copy";
     this.props.firebaseRef.parent.add({name: name, isPublic: false}).then((firebaseRef) => {
       savePlan({...this.props, firebaseRef, name});
     });

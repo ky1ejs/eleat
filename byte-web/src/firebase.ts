@@ -1,6 +1,6 @@
 import firebase from "firebase";
 
-var config = {
+const config = {
   apiKey: "AIzaSyCFWYW_xzSB_b8Vj_FCvyquoFzMANqxmgU",
   authDomain: "byte-f4942.firebaseapp.com",
   databaseURL: "https://byte-f4942.firebaseio.com",

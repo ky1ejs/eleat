@@ -23,13 +23,13 @@ interface ScheduleDetailProps {
   userId: string;
 }
 class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState> {
-  scheduleUnsubscribe?: Function = undefined;
-  plansUnsubscribe?: Function = undefined;
+  scheduleUnsubscribe?: () => void;
+  plansUnsubscribe?: () => void;
   planSelect: HTMLInputElement | undefined;
   state: ScheduleDetailState = {schedule: undefined, plans: [], shoppingList: []};
 
   onScheduleUpdate = (querySnapshot: firebase.firestore.DocumentSnapshot) => {
-    let schedule = scheduleFromSnapshot(querySnapshot);
+    const schedule = scheduleFromSnapshot(querySnapshot);
     this.setState({schedule});
     this.getAndgenerateShoppingListForPlans(schedule.plans).then((shoppingList) => {
       this.setState({shoppingList});
@@ -37,37 +37,37 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   };
 
   onPlansUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let plans = querySnapshot.docs.map(planFromSnapshot);
+    const plans = querySnapshot.docs.map(planFromSnapshot);
     this.setState({plans});
   };
 
   async getAndgenerateShoppingListForPlans(
     refs: firebase.firestore.DocumentReference[]
   ): Promise<ShoppingListItem[]> {
-    var refsAndPlans = new Map<string, {count: number; plan: Plan}>();
+    const refsAndPlans = new Map<string, {count: number; plan: Plan}>();
     for (const ref of refs) {
-      let existingPlan = refsAndPlans.get(ref.id);
+      const existingPlan = refsAndPlans.get(ref.id);
       console.log(ref.id);
       if (existingPlan) {
         existingPlan.count += 1;
       } else {
-        let snapshot = await ref.get();
+        const snapshot = await ref.get();
         refsAndPlans.set(ref.id, {
           count: 1,
           plan: planFromSnapshot(snapshot)
         });
       }
     }
-    let plans = Array.from(refsAndPlans.values())
+    const plans = Array.from(refsAndPlans.values())
       .map((planCount) => {
-        var repeatedPlans = new Array<Plan>();
-        for (var i = 0; i < planCount.count; i++) {
+        const repeatedPlans = new Array<Plan>();
+        for (let i = 0; i < planCount.count; i++) {
           repeatedPlans.push(planCount.plan);
         }
         return repeatedPlans;
       })
       .flat();
-    let list = await generateShoppingListForPlans(plans);
+    const list = await generateShoppingListForPlans(plans);
     return Array.from(list.values());
   }
 
@@ -87,8 +87,8 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
 
   addClick = (e: FormEvent) => {
     e.preventDefault();
-    let plan_ref = firebase.firestore().doc(this.planSelect!.value);
-    let schedule = this.state.schedule;
+    const plan_ref = firebase.firestore().doc(this.planSelect!.value);
+    const schedule = this.state.schedule;
     if (schedule) {
       schedule.plans.push(plan_ref);
       saveSchedule(schedule);
@@ -96,10 +96,10 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
   };
 
   render() {
-    var plans: JSX.Element[] = [];
-    let schedule = this.state.schedule;
+    let plans: JSX.Element[] = [];
+    const schedule = this.state.schedule;
     if (schedule) {
-      plans = schedule.plans.map((ref) => <PlanComp planRef={ref} />);
+      plans = schedule.plans.map((ref) => <PlanComp key={`${ref}`} planRef={ref} />);
     }
     return (
       <div>
@@ -127,9 +127,9 @@ class ScheduleDetail extends Component<ScheduleDetailProps, ScheduleDetailState>
               <th>Quantity</th>
             </tr>
             {this.state.shoppingList.map((item) => (
-              <tr>
+              <tr key={`${item.item.name}-row`}>
                 <td key={item.item.name}>{item.item.name}</td>
-                <td>
+                <td key={`${item.item.name}-data`}>
                   {item.grams} {item.item.measure_name}
                   {item.grams > 1 ? "s" : ""}
                 </td>
@@ -149,11 +149,11 @@ interface PlanCompState {
   plan?: Plan;
 }
 class PlanComp extends Component<PlanCompProps, PlanCompState> {
-  planUnsubscribe?: Function = undefined;
+  planUnsubscribe?: () => void;
   state: PlanCompState = {plan: undefined};
 
   onPlanUpdate = (snapshop: firebase.firestore.DocumentSnapshot) => {
-    let plan = planFromSnapshot(snapshop);
+    const plan = planFromSnapshot(snapshop);
     this.setState({plan});
   };
   componentDidMount() {
@@ -167,7 +167,7 @@ class PlanComp extends Component<PlanCompProps, PlanCompState> {
   }
 
   render() {
-    var name = "";
+    let name = "";
     if (this.state.plan) {
       name = this.state.plan.name;
     }

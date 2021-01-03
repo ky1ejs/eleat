@@ -12,11 +12,11 @@ interface ServingCompState {
   item?: Item;
 }
 class ServingComp extends Component<ServingCompProps, ServingCompState> {
-  itemUnsubscribe?: Function = undefined;
+  itemUnsubscribe?: () => void;
   state: ServingCompState = {item: undefined};
 
   onItemUpdate = (doc: firebase.firestore.DocumentSnapshot) => {
-    let item = itemFromSnapshot(doc);
+    const item = itemFromSnapshot(doc);
     this.setState({item});
   };
 
@@ -40,14 +40,14 @@ class ServingComp extends Component<ServingCompProps, ServingCompState> {
   }
 
   render() {
-    let item = this.state.item;
-    var rows: JSX.Element[] = [];
+    const item = this.state.item;
+    const rows: JSX.Element[] = [];
     if (item) {
-      let serving = this.serving();
-      let protein = item.protein_per_gram * serving.grams;
-      let fat = item.fat_per_gram * serving.grams;
-      let carbs = item.carbs_per_gram * serving.grams;
-      let calories = protein * 4 + fat * 9 + carbs * 4;
+      const serving = this.serving();
+      const protein = item.protein_per_gram * serving.grams;
+      const fat = item.fat_per_gram * serving.grams;
+      const carbs = item.carbs_per_gram * serving.grams;
+      const calories = protein * 4 + fat * 9 + carbs * 4;
       rows.push(<td>{item.name}</td>);
       rows.push(
         <td>

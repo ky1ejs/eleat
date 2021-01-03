@@ -8,9 +8,9 @@ export interface Plan {
 }
 
 export function planFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot): Plan {
-  let data = snapshot.data();
+  const data = snapshot.data();
   if (data) {
-    let meals = data.meals || [];
+    const meals = data.meals || [];
     return {
       firebaseRef: snapshot.ref,
       name: data.name,
@@ -22,7 +22,7 @@ export function planFromSnapshot(snapshot: firebase.firestore.DocumentSnapshot):
 }
 
 export function savePlan(plan: Plan) {
-  var planData = {...plan};
+  const planData = {...plan};
   delete planData.firebaseRef;
   plan.firebaseRef.set(planData);
 }

@@ -7,13 +7,13 @@ import * as Model from "./model";
 interface AppState {
   items: Model.Item[];
 }
-class App extends Component<{}, AppState> {
+class App extends Component<unknown, AppState> {
   ref = firebase.firestore().collection("items");
-  unsubscribe?: Function = undefined;
+  unsubscribe?: () => void;
   state: AppState = {items: []};
 
   onCollectionUpdate = (querySnapshot: firebase.firestore.QuerySnapshot) => {
-    let items = querySnapshot.docs.map(Model.itemFromSnapshot);
+    const items = querySnapshot.docs.map(Model.itemFromSnapshot);
     this.setState({items});
   };
 
