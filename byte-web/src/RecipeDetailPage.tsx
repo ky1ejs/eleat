@@ -9,6 +9,7 @@ export const RecipeDetailPage: React.FC<{recipeRef: firebase.firestore.DocumentR
   const [items, setItems] = useState<Item[]>([])
   let itemSelect: HTMLInputElement | undefined;
   let gramsTF: HTMLInputElement | undefined;
+  let methodTextArea: HTMLInputElement | undefined;
 
   useEffect(() => {
     const recipeSub = recipeRef.onSnapshot(snapshot => {
@@ -30,19 +31,34 @@ export const RecipeDetailPage: React.FC<{recipeRef: firebase.firestore.DocumentR
   };
 
   const addClick = (e: FormEvent) => {
-    if (!recipe) return
     e.preventDefault();
+    if (!recipe) return
     const itemRef = firebase.firestore().collection("items").doc(itemSelect!.value);
     const grams = Number(gramsTF!.value);
     recipe.ingredients.push({grams, item_ref: itemRef});
     saveRecipe(recipe);
   };
 
+  const saveMethod = (e: FormEvent) => {
+    e.preventDefault();
+    if (!recipe) return
+    recipe.method = methodTextArea!.value;
+    saveRecipe(recipe)
+  } 
+
   if (!recipe) return <div></div> 
 
   return (
       <div>
         <h1>{recipe.name}</h1>
+
+        <h1>Method</h1>
+        <Form inline onSubmit={saveMethod}>
+          <Form.Group controlId="exampleForm.ControlTextarea1">
+            <Form.Control value={recipe.method} ref={(ref) => (methodTextArea = ref)} as="textarea" rows={3} />
+          </Form.Group>
+          <Button type="submit">Save</Button>
+        </Form>
 
         <table>
           <thead>
@@ -81,12 +97,6 @@ export const RecipeDetailPage: React.FC<{recipeRef: firebase.firestore.DocumentR
           <Button type="submit">Save</Button>
         </Form>
       </div>
-  )
-}
-
-const Test: React.FC = () => {
-  return (
-    <div>Test</div>
   )
 }
 
