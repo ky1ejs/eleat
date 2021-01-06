@@ -15,6 +15,9 @@ class Navigation extends Component {
             <NavLink to={"/plan"}>Plan</NavLink>
           </Nav.Item>
           <Nav.Item>
+            <NavLink to={"/recipes"}>Recipes</NavLink>
+          </Nav.Item>
+          <Nav.Item>
             <NavLink to={"/schedule"}>Schedule</NavLink>
           </Nav.Item>
           <Nav.Item>

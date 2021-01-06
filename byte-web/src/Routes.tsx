@@ -12,6 +12,9 @@ import ScheduleDetail from "./ScheduleDetail";
 import Profile from "./Profile";
 import firebase from "./firebase";
 import {schedulesForUser, plansForUser} from "./model";
+import { RecipeTable } from "./RecipeTable";
+import { recipesForUser } from "./model/Recipe";
+import { RecipeDetailPage } from "./RecipeDetailPage";
 
 export const Routes = () => {
   return (
@@ -41,6 +44,32 @@ export const Routes = () => {
               const uid = firebase.auth().currentUser!.uid;
               const plan_ref = plansForUser(uid).doc(props.match.params.id);
               return <PlanDetail plan_ref={plan_ref} />;
+            } else {
+              return <Redirect to="login" />;
+            }
+          }}
+        />
+        <Route
+          exact
+          path="/recipes"
+          render={(props) => {
+            firebase.auth().currentUser?.reload();
+            if (firebase.auth().currentUser) {
+              return <RecipeTable userId={firebase.auth().currentUser!.uid} />;
+            } else {
+              return <Redirect to="login" />;
+            }
+          }}
+        />
+        <Route
+          exact
+          path="/recipes/:id"
+          render={(props) => {
+            firebase.auth().currentUser?.reload();
+            if (firebase.auth().currentUser) {
+              const uid = firebase.auth().currentUser!.uid;
+              const plan_ref = recipesForUser(uid).doc(props.match.params.id);
+              return <RecipeDetailPage recipeRef={plan_ref} />;
             } else {
               return <Redirect to="login" />;
             }
