@@ -23,7 +23,7 @@ const RecipePage: NextPage<{userId: string}> = ({userId}) => {
 
   useEffect(() => {
     return onSnapshot(recipeCollection, onRecipeUpdate)
-  }, [userId])
+  }, [userId, recipeCollection])
 
   const createRecipe = async (recipe: NewRecipe) => {
     if (recipe.name.length === 0) return

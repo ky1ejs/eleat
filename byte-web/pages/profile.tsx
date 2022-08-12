@@ -25,6 +25,7 @@ interface UserFormValues {
 const ProfilePage: NextPage<{uid: string}> = ({uid}) => {
   const db = getFirestore(firebaseApp)
   const userRef = doc(db, "users", uid).withConverter(userFirestoreCoder)
+  const {handleSubmit, control, reset} = useForm<UserFormValues>()
   const [user, setUser] = useState<User | undefined>()
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const ProfilePage: NextPage<{uid: string}> = ({uid}) => {
   })
 
    
-      if (!user) return null
+    if (!user) return null
 
     const updateUser = (userUpdate: UserFormValues) => {
       
@@ -69,6 +70,8 @@ const ProfilePage: NextPage<{uid: string}> = ({uid}) => {
       activity: user.activity
     }
 
+    reset(defaultValues)
+
     const targerMacroAmounts = calculateUsersMacroTargets(user, true);
     const targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams);
     const targetProtein = Math.round(targerMacroAmounts.protein_in_grams);
@@ -76,8 +79,6 @@ const ProfilePage: NextPage<{uid: string}> = ({uid}) => {
     const targetCals = calculateBmr(user, false);
     const targetCalsWithActivity = calculateBmr(user, true);
     const totalCals = targetCalsWithActivity + (user.caloric_surplus || 0);
-
-    const {handleSubmit, control} = useForm<UserFormValues>({defaultValues})
 
     return (
       <div>
