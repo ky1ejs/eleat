@@ -1,12 +1,12 @@
 import React from "react";
 import {Item, NewItem} from "@models";
-import {Form, Button, Row, Col} from "react-bootstrap";
+import {Form, Button} from "react-bootstrap";
 import { useForm } from 'react-hook-form'
 import { saveNewItem } from "@db";
 import { updateDoc } from "@firebase/firestore";
 import {FormField} from "./FormField";
 
-export function ItemComponent({item}: {item?: Item}) {
+export function ItemRowComponent({item, includeSaveButton}: {item?: Item, includeSaveButton: boolean}) {
   const defaultValues: NewItem | undefined = item ? {
     name: item.name, 
     measure_name: item.measure_name,
@@ -26,22 +26,24 @@ export function ItemComponent({item}: {item?: Item}) {
     }
   };
 
+  const formId = "test"
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <tr>
       {/* TODO: the transpiller should be able to know that the value of "name" fields below
           are not valid values of NewItem, but for some reason the type definition of Field
           not allowing it to look that up. */}
-      <Row>
-        <Col>
-          <FormField control={control} label="Name" name="name" isRequired />
-        </Col>
-        <Col><FormField control={control} label="Measurement" name="measure_name" isRequired /></Col>
-        <Col><FormField control={control} label="Protein" name="protein_per_gram" isRequired /></Col>
-        <Col><FormField control={control} label="Fat" name="fat_per_gram" isRequired /></Col>
-        <Col><FormField control={control} label="Carbs" name="carbs_per_gram" isRequired /></Col>
-        <Col><Form.Group>Calories</Form.Group></Col>
-        <Col><Button type="submit">Save</Button></Col>
-      </Row>
-    </Form>
+        <td>
+          <Form id={"test"} onSubmit={handleSubmit(onSubmit)} >
+            <FormField control={control} name="name" isRequired />
+          </Form>
+        </td>
+        <td><FormField formId={formId} control={control} name="measure_name" isRequired /></td>
+        <td><FormField formId={formId} control={control} name="protein_per_gram" isRequired /></td>
+        <td><FormField formId={formId} control={control} name="fat_per_gram" isRequired /></td>
+        <td><FormField formId={formId} control={control} name="carbs_per_gram" isRequired /></td>
+        <td><Form.Group>TODO cals calc</Form.Group></td>
+        {includeSaveButton && <td><Button type="submit">Save</Button></td>}
+    </tr>
   );
 }

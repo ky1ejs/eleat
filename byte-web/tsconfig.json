@@ -22,7 +22,8 @@
       "@layouts": ["layouts/index.ts"],
       "@models": ["models/index.ts"],
       "@byte": ["byte/index.ts"],
-      "@db": ["db/index.ts"]
+      "@db": ["db/index.ts"],
+      "@services": ["services/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
