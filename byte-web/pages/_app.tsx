@@ -4,6 +4,7 @@ import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { DefaultLayout } from '@layouts';
 import { RouteGuard } from '@components';
+import { UserProvider } from '@contexts';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -11,11 +12,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
-    <RouteGuard>
-      <DefaultLayout>
-        <Component {...pageProps} />
-      </DefaultLayout>
-    </RouteGuard>
+    <UserProvider>
+      <RouteGuard>
+        <DefaultLayout>
+          <Component {...pageProps} />
+        </DefaultLayout>
+      </RouteGuard>
+    </UserProvider>
     </>
   )
 }

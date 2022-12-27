@@ -1,11 +1,10 @@
 import React, { useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import { getAuth } from 'firebase/auth';
-import { firebaseApp } from '@db';
+import { useUser } from '@contexts';
 
 export const RouteGuard = ({ children }: { children: ReactNode | ReactNode[] }) => {
   const router = useRouter();
-  const auth = getAuth(firebaseApp);
+  const user = useUser();
   const [authorized, setAuthorized] = useState(false);
 
   useEffect(() => {
@@ -13,12 +12,12 @@ export const RouteGuard = ({ children }: { children: ReactNode | ReactNode[] }) 
       // redirect to login page if accessing a private page and not logged in 
       const publicPaths = ['/login', '/items'];
       const path = url.split('?')[0];
-      if (!auth.currentUser && !publicPaths.includes(path)) {
+      if (!user && !publicPaths.includes(path)) {
         setAuthorized(false);
         router.push({
           pathname: '/login',
           query: { returnUrl: router.asPath }
-        });
+        }, undefined, {shallow: true});
       } else {
         setAuthorized(true);
       }
@@ -40,7 +39,7 @@ export const RouteGuard = ({ children }: { children: ReactNode | ReactNode[] }) 
       router.events.off('routeChangeComplete', authCheck);
     }
 
-  }, [auth.currentUser, router]);
+  }, [user, router]);
 
   return <>{authorized && <>{children}</>}</>;
 }

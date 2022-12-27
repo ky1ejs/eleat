@@ -7,6 +7,7 @@ import { getAndGenerateShoppingListForPlans } from "@byte";
 import { Button, Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { SimplePlanComponent } from "@components";
+import { useUser } from "@contexts";
 
 interface ScheduleDetailState {
   schedule?: Schedule;
@@ -14,12 +15,15 @@ interface ScheduleDetailState {
   shoppingList: ShoppingListItem[];
 }
 
-const ScheduleDetailPage: NextPage<{ scheduleRef: DocumentReference, uid: string }> = ({ scheduleRef, uid }) => {
+const ScheduleDetailPage: NextPage<{ scheduleRef: DocumentReference}> = ({ scheduleRef }) => {
   const { control, handleSubmit } = useForm<{ planId: string }>()
   const [state, setState] = useState<ScheduleDetailState>({
     plansById: new Map(),
     shoppingList: []
   })
+  const user = useUser()
+
+  if (!user) return null
 
   const onScheduleUpdate = (snapshot: DocumentSnapshot<Schedule>) => {
     const schedule = snapshot.data()
@@ -40,7 +44,7 @@ const ScheduleDetailPage: NextPage<{ scheduleRef: DocumentReference, uid: string
 
   useEffect(() => {
     const scheduleUnsubscribe = onSnapshot(scheduleRef.withConverter(scheduleFirebaseCoder), onScheduleUpdate);
-    const plansUnsubscribe = onSnapshot(plansForUser(uid), onPlansUpdate);
+    const plansUnsubscribe = onSnapshot(plansForUser(user.uid), onPlansUpdate);
     return () => {
       scheduleUnsubscribe()
       plansUnsubscribe()

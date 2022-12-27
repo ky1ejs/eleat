@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import { NextPage } from "next";
 import styles from "./index.module.css"
-import { EmailLogInButton, LoadingIndicator } from "@components";
+import { EmailLogInButton, LoadingIndicator, GoogleLogInButton } from "@components";
 
 const Login: NextPage = () => {
     return (
@@ -12,7 +12,7 @@ const Login: NextPage = () => {
           To start making nutrition plans you need to log in or create an account.
         </p>
         <EmailLogInButton />
-        <Button>Google</Button>
+        <GoogleLogInButton />
         <Button>Apple</Button>
       </div>
     );

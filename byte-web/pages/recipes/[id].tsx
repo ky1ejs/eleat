@@ -6,11 +6,16 @@ import { doc, onSnapshot} from "@firebase/firestore";
 import { recipesForUser, recipeFromSnapshot, saveRecipe } from "@db";
 import { Controller, useForm } from "react-hook-form";
 import { ServingTableComponent } from "@components";
+import { useUser } from "@contexts";
 
-export const RecipeDetailPage: NextPage<{recipeId: string, uid: string}> = ({recipeId, uid}) => {
+export const RecipeDetailPage: NextPage<{recipeId: string}> = ({recipeId}) => {
   const [recipe, setRecipe] = useState<Recipe | undefined>(undefined)
+  const user = useUser()
   const {handleSubmit, control} = useForm<{method: string}>()
-  const recipeRef = doc(recipesForUser(uid), recipeId);
+
+  if (!user) return null
+
+  const recipeRef = doc(recipesForUser(user.uid), recipeId);
 
   useEffect(() => {
     return onSnapshot(recipeRef, snapshot => {

@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from "react";
-import {Plan,User} from "@models";
+import {Plan,UserData} from "@models";
 import {firebaseApp, planFromSnapshot, savePlan, userFirestoreCoder} from "@db"
 import { doc, DocumentReference, getDoc, getFirestore, onSnapshot } from "@firebase/firestore";
-import { getAuth } from "@firebase/auth";
 import { NextPage } from "next";
 import { NewMeal, MealComponent, PlanNutritionAnalysisComponent, NewMealForm } from "@components";
+import { useUser } from "@contexts";
 
 const PlanDetail: NextPage<{planRef: DocumentReference}> = ({planRef}) => {
-  const auth = getAuth(firebaseApp)
+  const user = useUser()
   const db = getFirestore(firebaseApp)
 
   const [plan, setPlan] = useState<Plan | undefined>()
-  const [user, setUser] = useState<User | undefined>()
+  const [userData, setUserData] = useState<UserData | undefined>()
 
   useEffect(() => {
-    const currentUser = auth.currentUser;
-    if (currentUser) {
-      getDoc(doc(db, "users", currentUser.uid).withConverter(userFirestoreCoder))
-        .then((snapshot) => setUser(snapshot.data()));
+    if (user) {
+      getDoc(doc(db, "users", user.uid).withConverter(userFirestoreCoder))
+        .then((snapshot) => setUserData(snapshot.data()));
     }
 
     return onSnapshot(planRef, snapshot => setPlan(planFromSnapshot(snapshot)));
@@ -35,7 +34,7 @@ const PlanDetail: NextPage<{planRef: DocumentReference}> = ({planRef}) => {
 
   return (
     <div>
-      <PlanNutritionAnalysisComponent plan={plan} user={user} />
+      <PlanNutritionAnalysisComponent plan={plan} userData={userData} />
       {plan.meals.map((meal, index) => <MealComponent key={index} meal={meal} savePlan={() => savePlan(plan)}/>)}
       <NewMealForm onSubmit={createNewMeal} />
     </div>

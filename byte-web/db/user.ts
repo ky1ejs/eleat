@@ -1,12 +1,12 @@
 import { DocumentData, FirestoreDataConverter, QueryDocumentSnapshot, SnapshotOptions, updateDoc } from "@firebase/firestore";
-import { Activity, User } from "@models";
+import { Activity, UserData } from "@models";
 
-export async function saveUser(user: User) {
+export async function saveUser(user: UserData) {
   await updateDoc(user.firebase_ref.withConverter(userFirestoreCoder), user)
 }
 
-export const userFirestoreCoder: FirestoreDataConverter<User> = {
-  toFirestore: (user: User) => {
+export const userFirestoreCoder: FirestoreDataConverter<UserData> = {
+  toFirestore: (user: UserData) => {
     const v = validateUserFields(user)
     return {
       ...v.usernameIsValid && {username: user.username},
@@ -21,7 +21,7 @@ export const userFirestoreCoder: FirestoreDataConverter<User> = {
   },
   fromFirestore: (snapshot: QueryDocumentSnapshot<DocumentData>, options?: SnapshotOptions) => {
     const data = snapshot.data(options);
-    const user: User = { 
+    const user: UserData = { 
       ...data, 
       activity: Activity.VALUES.get(data.activity), 
       firebase_ref: snapshot.ref 
@@ -30,7 +30,7 @@ export const userFirestoreCoder: FirestoreDataConverter<User> = {
   }
 }
 
-const validateUserFields = (user: User) => {
+const validateUserFields = (user: UserData) => {
   const m = user.macros_target
   const isMacroNutrientTargetValid = m && 
     m.carb_percentage > 0 &&

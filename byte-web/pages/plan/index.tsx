@@ -5,16 +5,14 @@ import {firebaseApp, planFromSnapshot} from '@db';
 import { NextPage } from "next";
 import {addDoc, collection, getFirestore, onSnapshot, QuerySnapshot, setDoc} from 'firebase/firestore'
 import { PlanComponent } from "@components";
-import { getAuth } from "firebase/auth";
+import { useUser } from "@contexts";
 
-const PlanPage: NextPage<{userId: string}> = ({ userId }) => {
-  const auth = getAuth(firebaseApp)
-  if (!auth.currentUser?.uid) {
-    
-  }
+const PlanPage: NextPage = () => {
+  const user = useUser()
+  if (!user) return null
 
   const db = getFirestore(firebaseApp)
-  const ref = collection(db, "users", userId, "plans");
+  const ref = collection(db, "users", user.uid, "plans");
   
   const [plans, setPlans] = useState<Plan[]>([])
   const [isSaving, setIsSaving] = useState(false);

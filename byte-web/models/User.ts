@@ -4,7 +4,7 @@ import { Activity } from "./Activity";
 import { MacroNutrientPercentageTargets } from "./MacroNutrientPercentageTargets";
 import { Sex } from "./Sex";
 
-export interface User {
+export interface UserData {
   firebase_ref: DocumentReference;
   username?: string;
   dob?: Timestamp;

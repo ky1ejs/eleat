@@ -1,6 +1,6 @@
-import { User } from "@models";
+import { UserData } from "@models";
 
-export function calculateBmr(user: User, withActivity: boolean): number {
+export function calculateBmr(user: UserData, withActivity: boolean): number {
   if (!user.dob) {
     return 0;
   }

@@ -6,9 +6,14 @@ import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { Controller, useForm } from "react-hook-form";
 import { ScheduleComponent } from "@components";
+import { useUser } from "@contexts";
 
-const PlanTable: NextPage<{uid: string}> = ({uid}) => {
-  const ref = schedulesForUser(uid);
+const PlanTable: NextPage = () => {
+  const user = useUser()
+  
+  if (!user) return null
+
+  const ref = schedulesForUser(user.uid);
   const [schedules, setSchedules] = useState<Schedule[]>([])
   const {control, handleSubmit} = useForm<{name: string}>()
 

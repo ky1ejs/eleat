@@ -5,17 +5,22 @@ import { addDoc, collection, getFirestore, onSnapshot, QuerySnapshot } from "@fi
 import { Recipe } from "@models";
 import { firebaseApp, recipeFromSnapshot } from "@db";
 import { Controller, useForm } from "react-hook-form";
-import Link from "next/link";
+import { useUser } from "@contexts";
+import { RecipeRow } from "@components";
 
 interface NewRecipe {
   name: string
 }
 
-const RecipePage: NextPage<{userId: string}> = ({userId}) => {
-  const db = getFirestore(firebaseApp)
-  const recipeCollection = collection(db, "users", userId, "recipes")
+const RecipePage: NextPage = () => {
+  const user = useUser()
   const [recipes, setRecipes] = useState<Recipe[]>([])
   const {handleSubmit, control} = useForm<NewRecipe>()
+
+  if (!user) return null
+
+  const db = getFirestore(firebaseApp)
+  const recipeCollection = collection(db, "users", user.uid, "recipes")
 
   const onRecipeUpdate = (snapshot: QuerySnapshot) => {
     setRecipes(snapshot.docs.map(recipeFromSnapshot))
@@ -23,7 +28,7 @@ const RecipePage: NextPage<{userId: string}> = ({userId}) => {
 
   useEffect(() => {
     return onSnapshot(recipeCollection, onRecipeUpdate)
-  }, [userId, recipeCollection])
+  }, [user.uid, recipeCollection])
 
   const createRecipe = async (recipe: NewRecipe) => {
     if (recipe.name.length === 0) return
@@ -45,25 +50,6 @@ const RecipePage: NextPage<{userId: string}> = ({userId}) => {
           />
         </Form.Group>{" "}
         <Button type="submit">Save</Button>
-      </Form>
-    </div>
-  )
-}
-
-const RecipeRow: React.FC<{recipe: Recipe}> = ({recipe}) => {
-  const onDeleteClick = () => {
-
-  }
-  return (
-    <div>
-      <Form>
-        <Form.Group>
-          <Form.Label>{recipe.name}</Form.Label>{" "}
-        </Form.Group>{" "}
-        <Button type="submit">
-          <Link href={"recipes/" + recipe.firebaseRef.id}>View</Link>
-        </Button>
-        <Button onClick={onDeleteClick}> Delete </Button>
       </Form>
     </div>
   )

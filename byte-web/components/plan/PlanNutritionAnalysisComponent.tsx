@@ -1,11 +1,11 @@
-import { Nutrition, Plan, User } from '@models';
+import { Nutrition, Plan, UserData } from '@models';
 import { calculateNutritionForPlan, calculateUsersMacroTargets } from '@byte';
 import React, { useState } from 'react'
 import { buildCalorieChartData, NutritionChartComponent } from '../NutritionChartComponent';
 import { NutritionInfoTable } from '../NutritionInfoTable';
 
 
-export function PlanNutritionAnalysisComponent({plan, user}: {plan: Plan, user?: User}) {
+export function PlanNutritionAnalysisComponent({plan, userData}: {plan: Plan, userData?: UserData}) {
   const [nutrition, setNutrition] = useState<Nutrition | undefined>()
 
   calculateNutritionForPlan(plan).then((nutrition) => {
@@ -14,7 +14,7 @@ export function PlanNutritionAnalysisComponent({plan, user}: {plan: Plan, user?:
 
   if (!nutrition) return null;
 
-  if (!user) return (
+  if (!userData) return (
     <div>
       <h4>Protein: {Math.round(nutrition.protein)}g</h4>
       <h4>Carb: {Math.round(nutrition.carbs)}g</h4>
@@ -23,7 +23,7 @@ export function PlanNutritionAnalysisComponent({plan, user}: {plan: Plan, user?:
     </div>
   )
 
-  const targets = calculateUsersMacroTargets(user, true)
+  const targets = calculateUsersMacroTargets(userData, true)
   const macroData = buildCalorieChartData(nutrition, targets)
   const calorieData = buildCalorieChartData(nutrition, targets)
 

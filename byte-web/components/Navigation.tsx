@@ -4,6 +4,7 @@ import { firebaseApp } from "@db";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/router";
 import {Navbar, Nav, NavLink, Button} from "react-bootstrap";
+import Link from "next/link";
 
 interface Item {
   path: string, 
@@ -63,7 +64,7 @@ export const Navigation = () => {
         {
           items.map(i => (
             <Nav.Item key={i.name}>
-              <NavLink active={isItemActive(i)} href={i.path}>{i.name}</NavLink>
+              <Link href={i.path}>{i.name}</Link>
             </Nav.Item>
           ))
         }

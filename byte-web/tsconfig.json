@@ -19,6 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "@components": ["components/index.ts"],
+      "@contexts": ["contexts/index.ts"],
       "@layouts": ["layouts/index.ts"],
       "@models": ["models/index.ts"],
       "@byte": ["byte/index.ts"],

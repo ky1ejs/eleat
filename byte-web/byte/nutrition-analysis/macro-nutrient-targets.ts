@@ -1,7 +1,7 @@
-import { MacroNutrientConsumptionTargets, User } from "@models";
+import { MacroNutrientConsumptionTargets, UserData } from "@models";
 import { calculateBmr } from ".";
 
-export function calculateUsersMacroTargets(user: User, factorInTheirActivity: boolean): MacroNutrientConsumptionTargets {
+export function calculateUsersMacroTargets(user: UserData, factorInTheirActivity: boolean): MacroNutrientConsumptionTargets {
   if (!user.macros_target) {
     return emptyTargets();
   }
