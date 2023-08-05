@@ -1,0 +1,8 @@
+fragment Item on items{ 
+  id
+  name
+  fat_per_gram
+  protein_per_gram
+  carbs_per_gram
+  measurement_name
+}

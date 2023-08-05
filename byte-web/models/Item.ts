@@ -11,7 +11,7 @@ export interface Item {
 
 export interface NewItem {
   name: string;
-  measure_name: string;
+  measurement_name: string;
   protein_per_gram: number;
   fat_per_gram: number;
   carbs_per_gram: number;

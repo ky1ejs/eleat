@@ -17,6 +17,10 @@ const PlanTable: NextPage = () => {
   const [schedules, setSchedules] = useState<Schedule[]>([])
   const {control, handleSubmit} = useForm<{name: string}>()
 
+  
+
+  const thing = useQuery
+
   useEffect(() => {
     return onSnapshot(ref, snapshot => {
       const docs = snapshot.docs.map(s => scheduleFirebaseCoder.fromFirestore(s))

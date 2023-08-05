@@ -1,0 +1,363 @@
+"""A high precision floating point value represented as a string"""
+scalar BigFloat
+
+"""
+Boolean expression comparing fields on type "BigFloat"
+"""
+input BigFloatFilter {
+  eq: BigFloat
+  gt: BigFloat
+  gte: BigFloat
+  in: [BigFloat!]
+  is: FilterIs
+  lt: BigFloat
+  lte: BigFloat
+  neq: BigFloat
+}
+
+"""An arbitrary size integer represented as a string"""
+scalar BigInt
+
+"""
+Boolean expression comparing fields on type "BigInt"
+"""
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  in: [BigInt!]
+  is: FilterIs
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+"""
+Boolean expression comparing fields on type "Boolean"
+"""
+input BooleanFilter {
+  eq: Boolean
+  is: FilterIs
+}
+
+"""
+An opaque string using for tracking a position in results during pagination
+"""
+scalar Cursor
+
+"""A date wihout time information"""
+scalar Date
+
+"""
+Boolean expression comparing fields on type "Date"
+"""
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  in: [Date!]
+  is: FilterIs
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+"""A date and time"""
+scalar Datetime
+
+"""
+Boolean expression comparing fields on type "Datetime"
+"""
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  in: [Datetime!]
+  is: FilterIs
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+enum FilterIs {
+  NULL
+  NOT_NULL
+}
+
+"""
+Boolean expression comparing fields on type "Float"
+"""
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: FilterIs
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+"""
+Boolean expression comparing fields on type "ID"
+"""
+input IDFilter {
+  eq: ID
+}
+
+"""
+Boolean expression comparing fields on type "Int"
+"""
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  is: FilterIs
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+"""A Javascript Object Notation value serialized as a string"""
+scalar JSON
+
+"""The root type for creating and mutating data"""
+type Mutation {
+  """Deletes zero or more records from the `items` collection"""
+  deleteFromitemsCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: itemsFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): itemsDeleteResponse!
+
+  """Adds one or more `items` records to the collection"""
+  insertIntoitemsCollection(objects: [itemsInsertInput!]!): itemsInsertResponse
+
+  """Updates zero or more records in the `items` collection"""
+  updateitemsCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: itemsUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: itemsFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): itemsUpdateResponse!
+}
+
+interface Node {
+  """Retrieves a record by `ID`"""
+  nodeId: ID!
+}
+
+"""Any type not handled by the type system"""
+scalar Opaque
+
+"""
+Boolean expression comparing fields on type "Opaque"
+"""
+input OpaqueFilter {
+  eq: Opaque
+  is: FilterIs
+}
+
+"""Defines a per-field sorting order"""
+enum OrderByDirection {
+  """Ascending order, nulls first"""
+  AscNullsFirst
+
+  """Ascending order, nulls last"""
+  AscNullsLast
+
+  """Descending order, nulls first"""
+  DescNullsFirst
+
+  """Descending order, nulls last"""
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""The root type for querying data"""
+type Query {
+  """A pagable collection of type `items`"""
+  itemsCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: itemsFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [itemsOrderBy!]
+  ): itemsConnection
+
+  """Retrieve a record by its `ID`"""
+  node(
+    """The record's `ID`"""
+    nodeId: ID!
+  ): Node
+}
+
+"""
+Boolean expression comparing fields on type "String"
+"""
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  ilike: String
+  in: [String!]
+  is: FilterIs
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  startsWith: String
+}
+
+"""A time without date information"""
+scalar Time
+
+"""
+Boolean expression comparing fields on type "Time"
+"""
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  in: [Time!]
+  is: FilterIs
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+"""A universally unique identifier"""
+scalar UUID
+
+"""
+Boolean expression comparing fields on type "UUID"
+"""
+input UUIDFilter {
+  eq: UUID
+  in: [UUID!]
+  is: FilterIs
+  neq: UUID
+}
+
+type items implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  inserted_at: Datetime!
+  updated_at: Datetime!
+  name: String!
+  measurement_name: String!
+  protein_per_gram: BigFloat!
+  fat_per_gram: BigFloat!
+  carbs_per_gram: BigFloat!
+}
+
+type itemsConnection {
+  edges: [itemsEdge!]!
+  pageInfo: PageInfo!
+}
+
+type itemsDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [items!]!
+}
+
+type itemsEdge {
+  cursor: String!
+  node: items!
+}
+
+input itemsFilter {
+  id: UUIDFilter
+  inserted_at: DatetimeFilter
+  updated_at: DatetimeFilter
+  name: StringFilter
+  measurement_name: StringFilter
+  protein_per_gram: BigFloatFilter
+  fat_per_gram: BigFloatFilter
+  carbs_per_gram: BigFloatFilter
+  nodeId: IDFilter
+}
+
+input itemsInsertInput {
+  id: UUID
+  inserted_at: Datetime
+  updated_at: Datetime
+  name: String
+  measurement_name: String
+  protein_per_gram: BigFloat
+  fat_per_gram: BigFloat
+  carbs_per_gram: BigFloat
+}
+
+type itemsInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [items!]!
+}
+
+input itemsOrderBy {
+  id: OrderByDirection
+  inserted_at: OrderByDirection
+  updated_at: OrderByDirection
+  name: OrderByDirection
+  measurement_name: OrderByDirection
+  protein_per_gram: OrderByDirection
+  fat_per_gram: OrderByDirection
+  carbs_per_gram: OrderByDirection
+}
+
+input itemsUpdateInput {
+  id: UUID
+  inserted_at: Datetime
+  updated_at: Datetime
+  name: String
+  measurement_name: String
+  protein_per_gram: BigFloat
+  fat_per_gram: BigFloat
+  carbs_per_gram: BigFloat
+}
+
+type itemsUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [items!]!
+}

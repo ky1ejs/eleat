@@ -5,6 +5,8 @@ import Head from 'next/head'
 import { DefaultLayout } from '@layouts';
 import { RouteGuard } from '@components';
 import { UserProvider } from '@contexts';
+import { SupabaseProvider } from 'supabase/SupabaseProvider';
+import { UrqlProvider } from 'graphql/urql/UrqlProvider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,6 +14,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
     </Head>
+    <SupabaseProvider>
+      <UrqlProvider>
     <UserProvider>
       <RouteGuard>
         <DefaultLayout>
@@ -19,6 +23,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         </DefaultLayout>
       </RouteGuard>
     </UserProvider>
+    </UrqlProvider>
+    </SupabaseProvider>
     </>
   )
 }

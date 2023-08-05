@@ -1,28 +1,55 @@
 import React from "react";
-import {Item, NewItem} from "@models";
+import { ItemFragment as Item } from "graphql/gql/graphql";
+import {NewItem} from "@models";
 import {Form, Button} from "react-bootstrap";
 import { useForm } from 'react-hook-form'
-import { saveNewItem } from "@db";
-import { updateDoc } from "@firebase/firestore";
 import {FormField} from "./FormField";
+import { graphql } from "graphql/gql";
+import { useMutation } from "urql";
+
+const UPDATE_ITEM = graphql(`
+  mutation UpdateItem($id: UUID, $update: itemsUpdateInput!) {
+  updateitemsCollection(
+    set: $update, 
+    filter: { id: { eq: $id }}
+  ) {
+    	affectedCount    
+    	records {
+      	...Item
+    	}
+	}
+}
+`)
+
+const INSERT_ITEM = graphql(`
+    mutation InsertItem($item: itemsInsertInput!) {
+      insertIntoitemsCollection(objects: [$item]) {
+        affectedCount    
+    	records {
+      	...Item
+    	}
+      }
+    }
+`)
 
 export function ItemRowComponent({item, includeSaveButton}: {item?: Item, includeSaveButton: boolean}) {
   const defaultValues: NewItem | undefined = item ? {
     name: item.name, 
-    measure_name: item.measure_name,
+    measurement_name: item.measurement_name,
     protein_per_gram: item.protein_per_gram,
     fat_per_gram: item.fat_per_gram, 
     carbs_per_gram: item.carbs_per_gram
   } : undefined
 
+  const [, update] = useMutation(UPDATE_ITEM)
+  const [, insert] = useMutation(INSERT_ITEM)
+
   const { control, handleSubmit } = useForm<NewItem>({defaultValues});
   const onSubmit = (newItem: NewItem) => {
     if (item) {
-      // I have no idea why the spread opperator is needed but without it there's an error
-      // maybe related: https://github.com/firebase/firebase-js-sdk/issues/5853
-      updateDoc(item.firestoreRef, {...newItem})
+      update({id: item.id, update: {...newItem}})
     } else {
-      saveNewItem(newItem);
+      insert({item: {...newItem}})
     }
   };
 
@@ -38,7 +65,7 @@ export function ItemRowComponent({item, includeSaveButton}: {item?: Item, includ
             <FormField control={control} name="name" isRequired />
           </Form>
         </td>
-        <td><FormField formId={formId} control={control} name="measure_name" isRequired /></td>
+        <td><FormField formId={formId} control={control} name="measurement_name" isRequired /></td>
         <td><FormField formId={formId} control={control} name="protein_per_gram" isRequired /></td>
         <td><FormField formId={formId} control={control} name="fat_per_gram" isRequired /></td>
         <td><FormField formId={formId} control={control} name="carbs_per_gram" isRequired /></td>

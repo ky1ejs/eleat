@@ -27,6 +27,6 @@
       "@services": ["services/index.ts"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/fetchGraphQLSchema.js"],
   "exclude": ["node_modules"]
 }
