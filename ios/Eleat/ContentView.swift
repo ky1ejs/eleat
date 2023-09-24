@@ -8,12 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var alertIsOpen = false
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+            Button("Launch App") {
+                alertIsOpen = true
+            }
+            .padding(20)
+            .overlay {
+                RoundedRectangle(cornerRadius: 10).stroke(.blue, lineWidth: 2)
+            }
+        }
+        .alert(isPresented:$alertIsOpen) {
+            Alert(
+                title: Text("Eleat is now launched"),
+                message: Text("Congratulations on the launch"),
+                dismissButton: .cancel(
+                    Text("Let's go")
+                )
+            )
         }
         .padding()
     }
