@@ -1,0 +1,609 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		894AC5982AC0F34500D4B891 /* EleatApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AC5972AC0F34500D4B891 /* EleatApp.swift */; };
+		894AC59A2AC0F34500D4B891 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AC5992AC0F34500D4B891 /* ContentView.swift */; };
+		894AC59C2AC0F34600D4B891 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 894AC59B2AC0F34600D4B891 /* Assets.xcassets */; };
+		894AC5A02AC0F34600D4B891 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 894AC59F2AC0F34600D4B891 /* Preview Assets.xcassets */; };
+		894AC5AA2AC0F34600D4B891 /* EleatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AC5A92AC0F34600D4B891 /* EleatTests.swift */; };
+		894AC5B42AC0F34600D4B891 /* EleatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AC5B32AC0F34600D4B891 /* EleatUITests.swift */; };
+		894AC5B62AC0F34600D4B891 /* EleatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894AC5B52AC0F34600D4B891 /* EleatUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		894AC5A62AC0F34600D4B891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 894AC58C2AC0F34500D4B891 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 894AC5932AC0F34500D4B891;
+			remoteInfo = Eleat;
+		};
+		894AC5B02AC0F34600D4B891 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 894AC58C2AC0F34500D4B891 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 894AC5932AC0F34500D4B891;
+			remoteInfo = Eleat;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		894AC5942AC0F34500D4B891 /* Eleat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Eleat.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		894AC5972AC0F34500D4B891 /* EleatApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleatApp.swift; sourceTree = "<group>"; };
+		894AC5992AC0F34500D4B891 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		894AC59B2AC0F34600D4B891 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		894AC59D2AC0F34600D4B891 /* Eleat.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Eleat.entitlements; sourceTree = "<group>"; };
+		894AC59F2AC0F34600D4B891 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		894AC5A52AC0F34600D4B891 /* EleatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EleatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		894AC5A92AC0F34600D4B891 /* EleatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleatTests.swift; sourceTree = "<group>"; };
+		894AC5AF2AC0F34600D4B891 /* EleatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EleatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		894AC5B32AC0F34600D4B891 /* EleatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleatUITests.swift; sourceTree = "<group>"; };
+		894AC5B52AC0F34600D4B891 /* EleatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EleatUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		894AC5912AC0F34500D4B891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5A22AC0F34600D4B891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5AC2AC0F34600D4B891 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		894AC58B2AC0F34500D4B891 = {
+			isa = PBXGroup;
+			children = (
+				894AC5962AC0F34500D4B891 /* Eleat */,
+				894AC5A82AC0F34600D4B891 /* EleatTests */,
+				894AC5B22AC0F34600D4B891 /* EleatUITests */,
+				894AC5952AC0F34500D4B891 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		894AC5952AC0F34500D4B891 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				894AC5942AC0F34500D4B891 /* Eleat.app */,
+				894AC5A52AC0F34600D4B891 /* EleatTests.xctest */,
+				894AC5AF2AC0F34600D4B891 /* EleatUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		894AC5962AC0F34500D4B891 /* Eleat */ = {
+			isa = PBXGroup;
+			children = (
+				894AC5972AC0F34500D4B891 /* EleatApp.swift */,
+				894AC5992AC0F34500D4B891 /* ContentView.swift */,
+				894AC59B2AC0F34600D4B891 /* Assets.xcassets */,
+				894AC59D2AC0F34600D4B891 /* Eleat.entitlements */,
+				894AC59E2AC0F34600D4B891 /* Preview Content */,
+			);
+			path = Eleat;
+			sourceTree = "<group>";
+		};
+		894AC59E2AC0F34600D4B891 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				894AC59F2AC0F34600D4B891 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		894AC5A82AC0F34600D4B891 /* EleatTests */ = {
+			isa = PBXGroup;
+			children = (
+				894AC5A92AC0F34600D4B891 /* EleatTests.swift */,
+			);
+			path = EleatTests;
+			sourceTree = "<group>";
+		};
+		894AC5B22AC0F34600D4B891 /* EleatUITests */ = {
+			isa = PBXGroup;
+			children = (
+				894AC5B32AC0F34600D4B891 /* EleatUITests.swift */,
+				894AC5B52AC0F34600D4B891 /* EleatUITestsLaunchTests.swift */,
+			);
+			path = EleatUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		894AC5932AC0F34500D4B891 /* Eleat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 894AC5B92AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "Eleat" */;
+			buildPhases = (
+				894AC5902AC0F34500D4B891 /* Sources */,
+				894AC5912AC0F34500D4B891 /* Frameworks */,
+				894AC5922AC0F34500D4B891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Eleat;
+			productName = Eleat;
+			productReference = 894AC5942AC0F34500D4B891 /* Eleat.app */;
+			productType = "com.apple.product-type.application";
+		};
+		894AC5A42AC0F34600D4B891 /* EleatTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 894AC5BC2AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "EleatTests" */;
+			buildPhases = (
+				894AC5A12AC0F34600D4B891 /* Sources */,
+				894AC5A22AC0F34600D4B891 /* Frameworks */,
+				894AC5A32AC0F34600D4B891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				894AC5A72AC0F34600D4B891 /* PBXTargetDependency */,
+			);
+			name = EleatTests;
+			productName = EleatTests;
+			productReference = 894AC5A52AC0F34600D4B891 /* EleatTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		894AC5AE2AC0F34600D4B891 /* EleatUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 894AC5BF2AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "EleatUITests" */;
+			buildPhases = (
+				894AC5AB2AC0F34600D4B891 /* Sources */,
+				894AC5AC2AC0F34600D4B891 /* Frameworks */,
+				894AC5AD2AC0F34600D4B891 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				894AC5B12AC0F34600D4B891 /* PBXTargetDependency */,
+			);
+			name = EleatUITests;
+			productName = EleatUITests;
+			productReference = 894AC5AF2AC0F34600D4B891 /* EleatUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		894AC58C2AC0F34500D4B891 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					894AC5932AC0F34500D4B891 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					894AC5A42AC0F34600D4B891 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 894AC5932AC0F34500D4B891;
+					};
+					894AC5AE2AC0F34600D4B891 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = 894AC5932AC0F34500D4B891;
+					};
+				};
+			};
+			buildConfigurationList = 894AC58F2AC0F34500D4B891 /* Build configuration list for PBXProject "Eleat" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 894AC58B2AC0F34500D4B891;
+			productRefGroup = 894AC5952AC0F34500D4B891 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				894AC5932AC0F34500D4B891 /* Eleat */,
+				894AC5A42AC0F34600D4B891 /* EleatTests */,
+				894AC5AE2AC0F34600D4B891 /* EleatUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		894AC5922AC0F34500D4B891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				894AC5A02AC0F34600D4B891 /* Preview Assets.xcassets in Resources */,
+				894AC59C2AC0F34600D4B891 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5A32AC0F34600D4B891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5AD2AC0F34600D4B891 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		894AC5902AC0F34500D4B891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				894AC59A2AC0F34500D4B891 /* ContentView.swift in Sources */,
+				894AC5982AC0F34500D4B891 /* EleatApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5A12AC0F34600D4B891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				894AC5AA2AC0F34600D4B891 /* EleatTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		894AC5AB2AC0F34600D4B891 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				894AC5B62AC0F34600D4B891 /* EleatUITestsLaunchTests.swift in Sources */,
+				894AC5B42AC0F34600D4B891 /* EleatUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		894AC5A72AC0F34600D4B891 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 894AC5932AC0F34500D4B891 /* Eleat */;
+			targetProxy = 894AC5A62AC0F34600D4B891 /* PBXContainerItemProxy */;
+		};
+		894AC5B12AC0F34600D4B891 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 894AC5932AC0F34500D4B891 /* Eleat */;
+			targetProxy = 894AC5B02AC0F34600D4B891 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		894AC5B72AC0F34600D4B891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		894AC5B82AC0F34600D4B891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		894AC5BA2AC0F34600D4B891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Eleat/Eleat.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Eleat/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.Eleat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		894AC5BB2AC0F34600D4B891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Eleat/Eleat.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Eleat/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.Eleat;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		894AC5BD2AC0F34600D4B891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.EleatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Eleat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Eleat";
+			};
+			name = Debug;
+		};
+		894AC5BE2AC0F34600D4B891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.EleatTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Eleat.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Eleat";
+			};
+			name = Release;
+		};
+		894AC5C02AC0F34600D4B891 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.EleatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Eleat;
+			};
+			name = Debug;
+		};
+		894AC5C12AC0F34600D4B891 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MACOSX_DEPLOYMENT_TARGET = 13.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fit.eleat.EleatUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Eleat;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		894AC58F2AC0F34500D4B891 /* Build configuration list for PBXProject "Eleat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				894AC5B72AC0F34600D4B891 /* Debug */,
+				894AC5B82AC0F34600D4B891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		894AC5B92AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "Eleat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				894AC5BA2AC0F34600D4B891 /* Debug */,
+				894AC5BB2AC0F34600D4B891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		894AC5BC2AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "EleatTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				894AC5BD2AC0F34600D4B891 /* Debug */,
+				894AC5BE2AC0F34600D4B891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		894AC5BF2AC0F34600D4B891 /* Build configuration list for PBXNativeTarget "EleatUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				894AC5C02AC0F34600D4B891 /* Debug */,
+				894AC5C12AC0F34600D4B891 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 894AC58C2AC0F34500D4B891 /* Project object */;
+}
