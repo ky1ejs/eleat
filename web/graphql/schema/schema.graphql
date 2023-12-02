@@ -1,0 +1,1137 @@
+"""A high precision floating point value represented as a string"""
+scalar BigFloat
+
+"""
+Boolean expression comparing fields on type "BigFloat"
+"""
+input BigFloatFilter {
+  eq: BigFloat
+  gt: BigFloat
+  gte: BigFloat
+  in: [BigFloat!]
+  is: FilterIs
+  lt: BigFloat
+  lte: BigFloat
+  neq: BigFloat
+}
+
+"""An arbitrary size integer represented as a string"""
+scalar BigInt
+
+"""
+Boolean expression comparing fields on type "BigInt"
+"""
+input BigIntFilter {
+  eq: BigInt
+  gt: BigInt
+  gte: BigInt
+  in: [BigInt!]
+  is: FilterIs
+  lt: BigInt
+  lte: BigInt
+  neq: BigInt
+}
+
+"""
+Boolean expression comparing fields on type "Boolean"
+"""
+input BooleanFilter {
+  eq: Boolean
+  is: FilterIs
+}
+
+"""
+An opaque string using for tracking a position in results during pagination
+"""
+scalar Cursor
+
+"""A date wihout time information"""
+scalar Date
+
+"""
+Boolean expression comparing fields on type "Date"
+"""
+input DateFilter {
+  eq: Date
+  gt: Date
+  gte: Date
+  in: [Date!]
+  is: FilterIs
+  lt: Date
+  lte: Date
+  neq: Date
+}
+
+"""A date and time"""
+scalar Datetime
+
+"""
+Boolean expression comparing fields on type "Datetime"
+"""
+input DatetimeFilter {
+  eq: Datetime
+  gt: Datetime
+  gte: Datetime
+  in: [Datetime!]
+  is: FilterIs
+  lt: Datetime
+  lte: Datetime
+  neq: Datetime
+}
+
+enum FilterIs {
+  NULL
+  NOT_NULL
+}
+
+"""
+Boolean expression comparing fields on type "Float"
+"""
+input FloatFilter {
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: FilterIs
+  lt: Float
+  lte: Float
+  neq: Float
+}
+
+"""
+Boolean expression comparing fields on type "ID"
+"""
+input IDFilter {
+  eq: ID
+}
+
+"""
+Boolean expression comparing fields on type "Int"
+"""
+input IntFilter {
+  eq: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  is: FilterIs
+  lt: Int
+  lte: Int
+  neq: Int
+}
+
+"""A Javascript Object Notation value serialized as a string"""
+scalar JSON
+
+"""The root type for creating and mutating data"""
+type Mutation {
+  """Deletes zero or more records from the `item` collection"""
+  deleteFromitemCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: itemFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): itemDeleteResponse!
+
+  """Deletes zero or more records from the `macro_target` collection"""
+  deleteFrommacro_targetCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: macro_targetFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): macro_targetDeleteResponse!
+
+  """
+  Deletes zero or more records from the `physical_activity_level` collection
+  """
+  deleteFromphysical_activity_levelCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: physical_activity_levelFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): physical_activity_levelDeleteResponse!
+
+  """Deletes zero or more records from the `plan` collection"""
+  deleteFromplanCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: planFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): planDeleteResponse!
+
+  """Deletes zero or more records from the `serving` collection"""
+  deleteFromservingCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: servingFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): servingDeleteResponse!
+
+  """Deletes zero or more records from the `user_profile` collection"""
+  deleteFromuser_profileCollection(
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: user_profileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): user_profileDeleteResponse!
+
+  """Adds one or more `item` records to the collection"""
+  insertIntoitemCollection(objects: [itemInsertInput!]!): itemInsertResponse
+
+  """Adds one or more `macro_target` records to the collection"""
+  insertIntomacro_targetCollection(objects: [macro_targetInsertInput!]!): macro_targetInsertResponse
+
+  """Adds one or more `physical_activity_level` records to the collection"""
+  insertIntophysical_activity_levelCollection(objects: [physical_activity_levelInsertInput!]!): physical_activity_levelInsertResponse
+
+  """Adds one or more `plan` records to the collection"""
+  insertIntoplanCollection(objects: [planInsertInput!]!): planInsertResponse
+
+  """Adds one or more `serving` records to the collection"""
+  insertIntoservingCollection(objects: [servingInsertInput!]!): servingInsertResponse
+
+  """Adds one or more `user_profile` records to the collection"""
+  insertIntouser_profileCollection(objects: [user_profileInsertInput!]!): user_profileInsertResponse
+
+  """Updates zero or more records in the `item` collection"""
+  updateitemCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: itemUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: itemFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): itemUpdateResponse!
+
+  """Updates zero or more records in the `macro_target` collection"""
+  updatemacro_targetCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: macro_targetUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: macro_targetFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): macro_targetUpdateResponse!
+
+  """
+  Updates zero or more records in the `physical_activity_level` collection
+  """
+  updatephysical_activity_levelCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: physical_activity_levelUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: physical_activity_levelFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): physical_activity_levelUpdateResponse!
+
+  """Updates zero or more records in the `plan` collection"""
+  updateplanCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: planUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: planFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): planUpdateResponse!
+
+  """Updates zero or more records in the `serving` collection"""
+  updateservingCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: servingUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: servingFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): servingUpdateResponse!
+
+  """Updates zero or more records in the `user_profile` collection"""
+  updateuser_profileCollection(
+    """
+    Fields that are set will be updated for all records matching the `filter`
+    """
+    set: user_profileUpdateInput!
+
+    """Restricts the mutation's impact to records matching the criteria"""
+    filter: user_profileFilter
+
+    """
+    The maximum number of records in the collection permitted to be affected
+    """
+    atMost: Int! = 1
+  ): user_profileUpdateResponse!
+}
+
+interface Node {
+  """Retrieves a record by `ID`"""
+  nodeId: ID!
+}
+
+"""Any type not handled by the type system"""
+scalar Opaque
+
+"""
+Boolean expression comparing fields on type "Opaque"
+"""
+input OpaqueFilter {
+  eq: Opaque
+  is: FilterIs
+}
+
+"""Defines a per-field sorting order"""
+enum OrderByDirection {
+  """Ascending order, nulls first"""
+  AscNullsFirst
+
+  """Ascending order, nulls last"""
+  AscNullsLast
+
+  """Descending order, nulls first"""
+  DescNullsFirst
+
+  """Descending order, nulls last"""
+  DescNullsLast
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+"""The root type for querying data"""
+type Query {
+  """A pagable collection of type `item`"""
+  itemCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: itemFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [itemOrderBy!]
+  ): itemConnection
+
+  """A pagable collection of type `macro_target`"""
+  macro_targetCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: macro_targetFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [macro_targetOrderBy!]
+  ): macro_targetConnection
+
+  """Retrieve a record by its `ID`"""
+  node(
+    """The record's `ID`"""
+    nodeId: ID!
+  ): Node
+
+  """A pagable collection of type `physical_activity_level`"""
+  physical_activity_levelCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: physical_activity_levelFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [physical_activity_levelOrderBy!]
+  ): physical_activity_levelConnection
+
+  """A pagable collection of type `plan`"""
+  planCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: planFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [planOrderBy!]
+  ): planConnection
+
+  """A pagable collection of type `serving`"""
+  servingCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: servingFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [servingOrderBy!]
+  ): servingConnection
+
+  """A pagable collection of type `user_profile`"""
+  user_profileCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: user_profileFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [user_profileOrderBy!]
+  ): user_profileConnection
+}
+
+"""
+Boolean expression comparing fields on type "String"
+"""
+input StringFilter {
+  eq: String
+  gt: String
+  gte: String
+  ilike: String
+  in: [String!]
+  iregex: String
+  is: FilterIs
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  regex: String
+  startsWith: String
+}
+
+"""A time without date information"""
+scalar Time
+
+"""
+Boolean expression comparing fields on type "Time"
+"""
+input TimeFilter {
+  eq: Time
+  gt: Time
+  gte: Time
+  in: [Time!]
+  is: FilterIs
+  lt: Time
+  lte: Time
+  neq: Time
+}
+
+"""A universally unique identifier"""
+scalar UUID
+
+"""
+Boolean expression comparing fields on type "UUID"
+"""
+input UUIDFilter {
+  eq: UUID
+  in: [UUID!]
+  is: FilterIs
+  neq: UUID
+}
+
+type item implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  created_at: Datetime!
+  updated_at: Datetime!
+  name: String!
+  created_by_user_id: UUID!
+  servingCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: servingFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [servingOrderBy!]
+  ): servingConnection
+}
+
+type itemConnection {
+  edges: [itemEdge!]!
+  pageInfo: PageInfo!
+}
+
+type itemDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [item!]!
+}
+
+type itemEdge {
+  cursor: String!
+  node: item!
+}
+
+input itemFilter {
+  id: UUIDFilter
+  created_at: DatetimeFilter
+  updated_at: DatetimeFilter
+  name: StringFilter
+  created_by_user_id: UUIDFilter
+  nodeId: IDFilter
+}
+
+input itemInsertInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  name: String
+  created_by_user_id: UUID
+}
+
+type itemInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [item!]!
+}
+
+input itemOrderBy {
+  id: OrderByDirection
+  created_at: OrderByDirection
+  updated_at: OrderByDirection
+  name: OrderByDirection
+  created_by_user_id: OrderByDirection
+}
+
+input itemUpdateInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  name: String
+  created_by_user_id: UUID
+}
+
+type itemUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [item!]!
+}
+
+type macro_target implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  created_at: Datetime!
+  updated_at: Datetime!
+  user_id: UUID!
+  protein_percentage: BigFloat!
+  fat_percentage: BigFloat!
+  carb_percentage: BigFloat!
+  user_profileCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: user_profileFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [user_profileOrderBy!]
+  ): user_profileConnection
+}
+
+type macro_targetConnection {
+  edges: [macro_targetEdge!]!
+  pageInfo: PageInfo!
+}
+
+type macro_targetDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [macro_target!]!
+}
+
+type macro_targetEdge {
+  cursor: String!
+  node: macro_target!
+}
+
+input macro_targetFilter {
+  id: UUIDFilter
+  created_at: DatetimeFilter
+  updated_at: DatetimeFilter
+  user_id: UUIDFilter
+  protein_percentage: BigFloatFilter
+  fat_percentage: BigFloatFilter
+  carb_percentage: BigFloatFilter
+  nodeId: IDFilter
+}
+
+input macro_targetInsertInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  user_id: UUID
+  protein_percentage: BigFloat
+  fat_percentage: BigFloat
+  carb_percentage: BigFloat
+}
+
+type macro_targetInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [macro_target!]!
+}
+
+input macro_targetOrderBy {
+  id: OrderByDirection
+  created_at: OrderByDirection
+  updated_at: OrderByDirection
+  user_id: OrderByDirection
+  protein_percentage: OrderByDirection
+  fat_percentage: OrderByDirection
+  carb_percentage: OrderByDirection
+}
+
+input macro_targetUpdateInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  user_id: UUID
+  protein_percentage: BigFloat
+  fat_percentage: BigFloat
+  carb_percentage: BigFloat
+}
+
+type macro_targetUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [macro_target!]!
+}
+
+type physical_activity_level implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  created_at: Datetime!
+  updated_at: Datetime!
+  name: String!
+  description: String!
+  multiplier: BigFloat!
+  user_profileCollection(
+    """Query the first `n` records in the collection"""
+    first: Int
+
+    """Query the last `n` records in the collection"""
+    last: Int
+
+    """Query values in the collection before the provided cursor"""
+    before: Cursor
+
+    """Query values in the collection after the provided cursor"""
+    after: Cursor
+
+    """Filters to apply to the results set when querying from the collection"""
+    filter: user_profileFilter
+
+    """Sort order to apply to the collection"""
+    orderBy: [user_profileOrderBy!]
+  ): user_profileConnection
+}
+
+type physical_activity_levelConnection {
+  edges: [physical_activity_levelEdge!]!
+  pageInfo: PageInfo!
+}
+
+type physical_activity_levelDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [physical_activity_level!]!
+}
+
+type physical_activity_levelEdge {
+  cursor: String!
+  node: physical_activity_level!
+}
+
+input physical_activity_levelFilter {
+  id: UUIDFilter
+  created_at: DatetimeFilter
+  updated_at: DatetimeFilter
+  name: StringFilter
+  description: StringFilter
+  multiplier: BigFloatFilter
+  nodeId: IDFilter
+}
+
+input physical_activity_levelInsertInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  name: String
+  description: String
+  multiplier: BigFloat
+}
+
+type physical_activity_levelInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [physical_activity_level!]!
+}
+
+input physical_activity_levelOrderBy {
+  id: OrderByDirection
+  created_at: OrderByDirection
+  updated_at: OrderByDirection
+  name: OrderByDirection
+  description: OrderByDirection
+  multiplier: OrderByDirection
+}
+
+input physical_activity_levelUpdateInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  name: String
+  description: String
+  multiplier: BigFloat
+}
+
+type physical_activity_levelUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [physical_activity_level!]!
+}
+
+type plan implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  updated_at: Datetime!
+  created_at: Datetime!
+  name: String!
+  ordered_item_ids: [UUID]!
+  user_id: UUID!
+}
+
+type planConnection {
+  edges: [planEdge!]!
+  pageInfo: PageInfo!
+}
+
+type planDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [plan!]!
+}
+
+type planEdge {
+  cursor: String!
+  node: plan!
+}
+
+input planFilter {
+  id: UUIDFilter
+  updated_at: DatetimeFilter
+  created_at: DatetimeFilter
+  name: StringFilter
+  user_id: UUIDFilter
+  nodeId: IDFilter
+}
+
+input planInsertInput {
+  id: UUID
+  updated_at: Datetime
+  created_at: Datetime
+  name: String
+  ordered_item_ids: [UUID]
+  user_id: UUID
+}
+
+type planInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [plan!]!
+}
+
+input planOrderBy {
+  id: OrderByDirection
+  updated_at: OrderByDirection
+  created_at: OrderByDirection
+  name: OrderByDirection
+  user_id: OrderByDirection
+}
+
+input planUpdateInput {
+  id: UUID
+  updated_at: Datetime
+  created_at: Datetime
+  name: String
+  ordered_item_ids: [UUID]
+  user_id: UUID
+}
+
+type planUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [plan!]!
+}
+
+type serving implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  updated_at: Datetime!
+  created_at: Datetime!
+  name: String!
+  plural: String!
+  protein_grams: BigFloat!
+  fat_grams: BigFloat!
+  carb_grams: BigFloat!
+  item_id: UUID!
+  created_by_user_id: UUID!
+  item: item!
+}
+
+type servingConnection {
+  edges: [servingEdge!]!
+  pageInfo: PageInfo!
+}
+
+type servingDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [serving!]!
+}
+
+type servingEdge {
+  cursor: String!
+  node: serving!
+}
+
+input servingFilter {
+  id: UUIDFilter
+  updated_at: DatetimeFilter
+  created_at: DatetimeFilter
+  name: StringFilter
+  plural: StringFilter
+  protein_grams: BigFloatFilter
+  fat_grams: BigFloatFilter
+  carb_grams: BigFloatFilter
+  item_id: UUIDFilter
+  created_by_user_id: UUIDFilter
+  nodeId: IDFilter
+}
+
+input servingInsertInput {
+  id: UUID
+  updated_at: Datetime
+  created_at: Datetime
+  name: String
+  plural: String
+  protein_grams: BigFloat
+  fat_grams: BigFloat
+  carb_grams: BigFloat
+  item_id: UUID
+  created_by_user_id: UUID
+}
+
+type servingInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [serving!]!
+}
+
+input servingOrderBy {
+  id: OrderByDirection
+  updated_at: OrderByDirection
+  created_at: OrderByDirection
+  name: OrderByDirection
+  plural: OrderByDirection
+  protein_grams: OrderByDirection
+  fat_grams: OrderByDirection
+  carb_grams: OrderByDirection
+  item_id: OrderByDirection
+  created_by_user_id: OrderByDirection
+}
+
+input servingUpdateInput {
+  id: UUID
+  updated_at: Datetime
+  created_at: Datetime
+  name: String
+  plural: String
+  protein_grams: BigFloat
+  fat_grams: BigFloat
+  carb_grams: BigFloat
+  item_id: UUID
+  created_by_user_id: UUID
+}
+
+type servingUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [serving!]!
+}
+
+type user_profile implements Node {
+  """Globally Unique Record Identifier"""
+  nodeId: ID!
+  id: UUID!
+  created_at: Datetime!
+  updated_at: Datetime!
+  user_id: UUID!
+  username: String
+  display_name: String
+  avatar_url: String
+  date_of_birth: Date
+  weight_in_grams: BigFloat
+  height_in_cm: BigFloat
+  amount_of_surplus_calories: BigFloat
+  physical_activity_level_id: UUID
+  macro_target_id: UUID
+  physical_activity_level: physical_activity_level
+  macro_target: macro_target
+}
+
+type user_profileConnection {
+  edges: [user_profileEdge!]!
+  pageInfo: PageInfo!
+}
+
+type user_profileDeleteResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [user_profile!]!
+}
+
+type user_profileEdge {
+  cursor: String!
+  node: user_profile!
+}
+
+input user_profileFilter {
+  id: UUIDFilter
+  created_at: DatetimeFilter
+  updated_at: DatetimeFilter
+  user_id: UUIDFilter
+  username: StringFilter
+  display_name: StringFilter
+  avatar_url: StringFilter
+  date_of_birth: DateFilter
+  weight_in_grams: BigFloatFilter
+  height_in_cm: BigFloatFilter
+  amount_of_surplus_calories: BigFloatFilter
+  physical_activity_level_id: UUIDFilter
+  macro_target_id: UUIDFilter
+  nodeId: IDFilter
+}
+
+input user_profileInsertInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  user_id: UUID
+  username: String
+  display_name: String
+  avatar_url: String
+  date_of_birth: Date
+  weight_in_grams: BigFloat
+  height_in_cm: BigFloat
+  amount_of_surplus_calories: BigFloat
+  physical_activity_level_id: UUID
+  macro_target_id: UUID
+}
+
+type user_profileInsertResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [user_profile!]!
+}
+
+input user_profileOrderBy {
+  id: OrderByDirection
+  created_at: OrderByDirection
+  updated_at: OrderByDirection
+  user_id: OrderByDirection
+  username: OrderByDirection
+  display_name: OrderByDirection
+  avatar_url: OrderByDirection
+  date_of_birth: OrderByDirection
+  weight_in_grams: OrderByDirection
+  height_in_cm: OrderByDirection
+  amount_of_surplus_calories: OrderByDirection
+  physical_activity_level_id: OrderByDirection
+  macro_target_id: OrderByDirection
+}
+
+input user_profileUpdateInput {
+  id: UUID
+  created_at: Datetime
+  updated_at: Datetime
+  user_id: UUID
+  username: String
+  display_name: String
+  avatar_url: String
+  date_of_birth: Date
+  weight_in_grams: BigFloat
+  height_in_cm: BigFloat
+  amount_of_surplus_calories: BigFloat
+  physical_activity_level_id: UUID
+  macro_target_id: UUID
+}
+
+type user_profileUpdateResponse {
+  """Count of the records impacted by the mutation"""
+  affectedCount: Int!
+
+  """Array of records impacted by the mutation"""
+  records: [user_profile!]!
+}

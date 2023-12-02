@@ -1,0 +1,65 @@
+{
+  "name": "eleat",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "codegen": "graphql-codegen",
+    "codegen:fetch": "ts-node --skip-project scripts/fetchGraphQLSchema.ts",
+    "codegen:fetch:local": "NODE_ENV=\"development\" ts-node --skip-project scripts/fetchGraphQLSchema.ts",
+    "codegen:watch": "graphql-codegen --watch",
+    "supabase:download-types": "supabase gen types typescript --local > supabase/database.types.ts"
+  },
+  "dependencies": {
+    "@graphql-codegen/cli": "^4.0.1",
+    "@graphql-codegen/client-preset": "^4.0.1",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@supabase/auth-helpers-nextjs": "^0.7.2",
+    "@supabase/auth-ui-react": "^0.4.2",
+    "@supabase/auth-ui-shared": "^0.1.6",
+    "@types/node": "20.3.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "@typescript-eslint/eslint-plugin": "^6.12.0",
+    "@urql/exchange-graphcache": "^6.3.3",
+    "@urql/next": "^1.0.0-beta.2",
+    "autoprefixer": "10.4.14",
+    "dotenv": "^16.3.1",
+    "eslint": "8.52.0",
+    "eslint-config-next": "14.0.2",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "graphql": "^16.7.1",
+    "graphql-codegen": "^0.4.0",
+    "next": "13.4.7",
+    "next-urql": "^5.0.2",
+    "postcss": "8.4.24",
+    "prettier": "^3.1.0",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.1",
+    "supabase": "^1.113.3",
+    "tailwindcss": "3.3.2",
+    "ts-node": "^10.9.1",
+    "typescript": "5.1.5",
+    "urql": "^4.0.4"
+  },
+  "comments": {
+    "scripts": {
+      "codegen:fetch": "--skip-project ignores NextJS tsconfig settings that break ts-node: https://stackoverflow.com/questions/69580704/nextjs-run-a-typescript-script-on-the-server",
+      "supabase:download-types": "Downloads types for this supbase. run `supbase start` first."
+    },
+    "dependencies": {
+      "note": "no need to use devDependencies with NextJS 13: https://stackoverflow.com/questions/74371000/next-js-13-devdependencies",
+      "codegen:fetch": {
+        "note": "These deps were added in order to run the fetch script",
+        "deps": "ts-node, dotenv"
+      }
+    }
+  }
+}
