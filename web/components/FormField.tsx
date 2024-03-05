@@ -1,4 +1,12 @@
-import { FieldValues, Path, Control, Controller } from "react-hook-form";
+import {
+  FieldValues,
+  Path,
+  Control,
+  Controller,
+  FieldValue,
+  UseFormRegister,
+  FieldPath,
+} from "react-hook-form";
 
 type FormFieldProps<
   T extends FieldValues = FieldValues,
@@ -40,5 +48,26 @@ export const FormField = <
         </div>
       )}
     />
+  );
+};
+
+type NewProps<T extends FieldValues> = {
+  name: FieldPath<T>;
+  register: UseFormRegister<T>;
+  isRequired?: boolean;
+  label?: string;
+};
+
+export const NewField = <TFieldValues extends FieldValues>({
+  name,
+  register,
+  isRequired,
+  label,
+}: NewProps<TFieldValues>) => {
+  return (
+    <div>
+      {label && <label className="ml-2 block">{label}</label>}
+      <input className="m-2 rounded-md border-2 p-2" {...register(name)} />
+    </div>
   );
 };

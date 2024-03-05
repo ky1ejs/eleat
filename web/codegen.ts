@@ -16,11 +16,10 @@ const config: CodegenConfig = {
       },
       config: {
         scalars: {
-          Date: "Date",
-          BigFloat: "number",
+          Date: "string",
           BigInt: "BigInt",
           Int: "number",
-          UUID: "UUID",
+          UUID: "string",
         },
       },
     },

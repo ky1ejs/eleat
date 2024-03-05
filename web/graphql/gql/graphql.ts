@@ -15,13 +15,13 @@ export type Scalars = {
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
   /** A high precision floating point value represented as a string */
-  BigFloat: { input: number; output: number; }
+  BigFloat: { input: any; output: any; }
   /** An arbitrary size integer represented as a string */
   BigInt: { input: BigInt; output: BigInt; }
   /** An opaque string using for tracking a position in results during pagination */
   Cursor: { input: any; output: any; }
   /** A date wihout time information */
-  Date: { input: Date; output: Date; }
+  Date: { input: string; output: string; }
   /** A date and time */
   Datetime: { input: any; output: any; }
   /** A Javascript Object Notation value serialized as a string */
@@ -31,7 +31,7 @@ export type Scalars = {
   /** A time without date information */
   Time: { input: any; output: any; }
   /** A universally unique identifier */
-  UUID: { input: UUID; output: UUID; }
+  UUID: { input: string; output: string; }
 };
 
 /** Boolean expression comparing fields on type "BigFloat" */
@@ -1050,14 +1050,14 @@ export type User_ProfileUpdateResponse = {
 export type ItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ItemsQuery = { __typename?: 'Query', itemCollection?: { __typename?: 'itemConnection', edges: Array<{ __typename?: 'itemEdge', node: { __typename?: 'item', id: UUID, name: string, servingCollection?: { __typename?: 'servingConnection', edges: Array<{ __typename?: 'servingEdge', node: { __typename?: 'serving', id: UUID, item_id: UUID, name: string, plural: string, protein_grams: number, fat_grams: number, carb_grams: number } }> } | null } }> } | null };
+export type ItemsQuery = { __typename?: 'Query', itemCollection?: { __typename?: 'itemConnection', edges: Array<{ __typename?: 'itemEdge', node: { __typename?: 'item', id: string, name: string, servingCollection?: { __typename?: 'servingConnection', edges: Array<{ __typename?: 'servingEdge', node: { __typename?: 'serving', id: string, item_id: string, name: string, plural: string, protein_grams: any, fat_grams: any, carb_grams: any } }> } | null } }> } | null };
 
 export type UserProfileQueryVariables = Exact<{
   user_id: Scalars['UUID']['input'];
 }>;
 
 
-export type UserProfileQuery = { __typename?: 'Query', user_profileCollection?: { __typename?: 'user_profileConnection', edges: Array<{ __typename?: 'user_profileEdge', node: { __typename?: 'user_profile', nodeId: string, id: UUID, created_at: any, updated_at: any, user_id: UUID, username?: string | null, display_name?: string | null, avatar_url?: string | null, date_of_birth?: Date | null, weight_in_grams?: number | null, height_in_cm?: number | null, amount_of_surplus_calories?: number | null, physical_activity_level_id?: UUID | null, physical_activity_level?: { __typename?: 'physical_activity_level', id: UUID, name: string, description: string, multiplier: number } | null, macro_target?: { __typename?: 'macro_target', id: UUID, protein_percentage: number, fat_percentage: number, carb_percentage: number } | null } }> } | null };
+export type UserProfileQuery = { __typename?: 'Query', user_profileCollection?: { __typename?: 'user_profileConnection', edges: Array<{ __typename?: 'user_profileEdge', node: { __typename?: 'user_profile', nodeId: string, id: string, created_at: any, updated_at: any, user_id: string, username?: string | null, display_name?: string | null, avatar_url?: string | null, date_of_birth?: string | null, weight_in_grams?: any | null, height_in_cm?: any | null, amount_of_surplus_calories?: any | null, physical_activity_level_id?: string | null, physical_activity_level?: { __typename?: 'physical_activity_level', id: string, name: string, description: string, multiplier: any } | null, macro_target?: { __typename?: 'macro_target', id: string, protein_percentage: any, fat_percentage: any, carb_percentage: any } | null } }> } | null };
 
 export type UpdateUserProfileMutationVariables = Exact<{
   user_id: Scalars['UUID']['input'];
@@ -1070,7 +1070,7 @@ export type UpdateUserProfileMutation = { __typename?: 'Mutation', updateuser_pr
 export type ListPhysicalActivityLevelsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ListPhysicalActivityLevelsQuery = { __typename?: 'Query', physical_activity_levelCollection?: { __typename?: 'physical_activity_levelConnection', edges: Array<{ __typename?: 'physical_activity_levelEdge', node: { __typename?: 'physical_activity_level', id: UUID, name: string, description: string, multiplier: number } }> } | null };
+export type ListPhysicalActivityLevelsQuery = { __typename?: 'Query', physical_activity_levelCollection?: { __typename?: 'physical_activity_levelConnection', edges: Array<{ __typename?: 'physical_activity_levelEdge', node: { __typename?: 'physical_activity_level', id: string, name: string, description: string, multiplier: any } }> } | null };
 
 export type InsertItemMutationVariables = Exact<{
   item: ItemInsertInput;
@@ -1079,15 +1079,15 @@ export type InsertItemMutationVariables = Exact<{
 
 export type InsertItemMutation = { __typename?: 'Mutation', insertIntoitemCollection?: { __typename?: 'itemInsertResponse', affectedCount: number } | null };
 
-export type ServingFragment = { __typename?: 'serving', id: UUID, item_id: UUID, name: string, plural: string, protein_grams: number, fat_grams: number, carb_grams: number };
+export type ServingFragment = { __typename?: 'serving', id: string, item_id: string, name: string, plural: string, protein_grams: any, fat_grams: any, carb_grams: any };
 
-export type ItemFragment = { __typename?: 'item', id: UUID, name: string, servingCollection?: { __typename?: 'servingConnection', edges: Array<{ __typename?: 'servingEdge', node: { __typename?: 'serving', id: UUID, item_id: UUID, name: string, plural: string, protein_grams: number, fat_grams: number, carb_grams: number } }> } | null };
+export type ItemFragment = { __typename?: 'item', id: string, name: string, servingCollection?: { __typename?: 'servingConnection', edges: Array<{ __typename?: 'servingEdge', node: { __typename?: 'serving', id: string, item_id: string, name: string, plural: string, protein_grams: any, fat_grams: any, carb_grams: any } }> } | null };
 
-export type PhysicalActivityLevelFragment = { __typename?: 'physical_activity_level', id: UUID, name: string, description: string, multiplier: number };
+export type PhysicalActivityLevelFragment = { __typename?: 'physical_activity_level', id: string, name: string, description: string, multiplier: any };
 
-export type MacroTargetFragment = { __typename?: 'macro_target', id: UUID, protein_percentage: number, fat_percentage: number, carb_percentage: number };
+export type MacroTargetFragment = { __typename?: 'macro_target', id: string, protein_percentage: any, fat_percentage: any, carb_percentage: any };
 
-export type UserProfileFragment = { __typename?: 'user_profile', nodeId: string, id: UUID, created_at: any, updated_at: any, user_id: UUID, username?: string | null, display_name?: string | null, avatar_url?: string | null, date_of_birth?: Date | null, weight_in_grams?: number | null, height_in_cm?: number | null, amount_of_surplus_calories?: number | null, physical_activity_level_id?: UUID | null, physical_activity_level?: { __typename?: 'physical_activity_level', id: UUID, name: string, description: string, multiplier: number } | null, macro_target?: { __typename?: 'macro_target', id: UUID, protein_percentage: number, fat_percentage: number, carb_percentage: number } | null };
+export type UserProfileFragment = { __typename?: 'user_profile', nodeId: string, id: string, created_at: any, updated_at: any, user_id: string, username?: string | null, display_name?: string | null, avatar_url?: string | null, date_of_birth?: string | null, weight_in_grams?: any | null, height_in_cm?: any | null, amount_of_surplus_calories?: any | null, physical_activity_level_id?: string | null, physical_activity_level?: { __typename?: 'physical_activity_level', id: string, name: string, description: string, multiplier: any } | null, macro_target?: { __typename?: 'macro_target', id: string, protein_percentage: any, fat_percentage: any, carb_percentage: any } | null };
 
 export const ServingFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Serving"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"serving"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"plural"}},{"kind":"Field","name":{"kind":"Name","value":"protein_grams"}},{"kind":"Field","name":{"kind":"Name","value":"fat_grams"}},{"kind":"Field","name":{"kind":"Name","value":"carb_grams"}}]}}]} as unknown as DocumentNode<ServingFragment, unknown>;
 export const ItemFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Item"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"item"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"servingCollection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Serving"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Serving"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"serving"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"plural"}},{"kind":"Field","name":{"kind":"Name","value":"protein_grams"}},{"kind":"Field","name":{"kind":"Name","value":"fat_grams"}},{"kind":"Field","name":{"kind":"Name","value":"carb_grams"}}]}}]} as unknown as DocumentNode<ItemFragment, unknown>;

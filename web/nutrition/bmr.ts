@@ -8,14 +8,13 @@ export function calculateBmr(
     return 0;
   }
 
-  console.log(user.date_of_birth);
-  console.log(typeof user.date_of_birth);
-  const diff = Math.abs(user.date_of_birth.getTime() - new Date().getTime());
+  const dobDate = new Date(user.date_of_birth);
+  const diff = Math.abs(dobDate.getTime() - new Date().getTime());
   const years = Math.ceil(diff / (1000 * 3600 * 24 * 365));
   // Mifflin-St Jeor Equation - https://www.calculator.net/bmr-calculator.html
   let base =
     (user.weight_in_grams / 1000) * 10 +
-    (user.height_in_cm / 100) * 6.25 -
+    user.height_in_cm * 6.25 -
     years * 5 +
     5;
   if (withActivity && user.physical_activity_level) {

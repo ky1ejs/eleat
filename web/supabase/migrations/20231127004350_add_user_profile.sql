@@ -32,6 +32,7 @@ CREATE TABLE public.macro_target (
     fat_percentage numeric NOT NULL,
     carb_percentage numeric NOT NULL
 );
+ALTER TABLE public.physical_activity_level ENABLE ROW LEVEL SECURITY;
 
 CREATE TABLE public.user_profile (
     id uuid DEFAULT extensions.uuid_generate_v4() NOT NULL PRIMARY KEY,

@@ -1,14 +1,15 @@
 "use client";
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
 
 import { useSession } from "@/supabase/SupabaseSessionProvider";
 import { graphql } from "@/graphql/gql";
 import { useMutation, useQuery } from "urql";
 import { UserProfileFragment } from "@/graphql/gql/graphql";
-// import { calculateUsersMacroTargets } from "@/nutrition/macro-nutrient-targets";
-// import { calculateBmr } from "@/nutrition/bmr";
-import { FormField } from "@/components/FormField";
-import { useForm, Controller } from "react-hook-form";
+import { calculateUsersMacroTargets } from "@/nutrition/macro-nutrient-targets";
+import { calculateBmr } from "@/nutrition/bmr";
+import { FormField, NewField } from "@/components/FormField";
+import { useForm } from "react-hook-form";
 import { Session } from "@supabase/auth-helpers-nextjs";
 
 const USER_PROFILE = graphql(`
@@ -87,11 +88,11 @@ const LoggedInContent = ({ session }: { session: Session }) => {
   const defaultValues: Partial<UserProfileFragment> = {
     ...profile,
     weight_in_grams: profile?.weight_in_grams
-      ? profile.weight_in_grams / 100
+      ? profile.weight_in_grams / 1000
       : undefined,
   };
 
-  const { handleSubmit, control } = useForm<UserProfileFragment>({
+  const { handleSubmit, control, register } = useForm<UserProfileFragment>({
     defaultValues,
   });
 
@@ -106,7 +107,9 @@ const LoggedInContent = ({ session }: { session: Session }) => {
       user_id: session.user.id,
       data: {
         ...cleanedUpdate,
-        weight_in_grams: cleanedUpdate.weight_in_grams ?? 0 * 100,
+        weight_in_grams: cleanedUpdate.weight_in_grams
+          ? (cleanedUpdate.weight_in_grams * 1000).toString()
+          : undefined,
       },
     });
   };
@@ -115,14 +118,16 @@ const LoggedInContent = ({ session }: { session: Session }) => {
     return <div>Loading...</div>;
   }
 
-  // const targerMacroAmounts = calculateUsersMacroTargets(profile, true);
-  // const targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams);
-  // const targetProtein = Math.round(targerMacroAmounts.protein_in_grams);
-  // const targetFat = Math.round(targerMacroAmounts.fat_in_grams);
-  // const targetCals = calculateBmr(profile, false);
-  // const targetCalsWithActivity = calculateBmr(profile, true);
-  // const totalCals =
-  //   targetCalsWithActivity + (profile.amount_of_surplus_calories || 0);
+  const targerMacroAmounts = calculateUsersMacroTargets(profile, true);
+  const targetCarbs = Math.round(targerMacroAmounts.carbs_in_grams);
+  const targetProtein = Math.round(targerMacroAmounts.protein_in_grams);
+  const targetFat = Math.round(targerMacroAmounts.fat_in_grams);
+  const targetCals = calculateBmr(profile, false);
+  const targetCalsWithActivity = calculateBmr(profile, true);
+  const totalCals =
+    targetCalsWithActivity + (profile.amount_of_surplus_calories || 0);
+
+  console.log(profile.physical_activity_level?.name);
 
   return (
     <div>
@@ -159,30 +164,17 @@ const LoggedInContent = ({ session }: { session: Session }) => {
           name="surplus"
           isRequired={false}
         /> */}
-        <Controller
-          control={control}
-          name="physical_activity_level_id"
-          render={({ field }) => (
-            <>
-              Activity
-              <select
-                ref={field.ref}
-                onChange={field.onChange}
-                placeholder="select"
-              >
-                {physicalActivityLevels?.physical_activity_levelCollection?.edges.map(
-                  ({ node: activity }) => (
-                    <option key={activity.id} value={activity.id}>
-                      {activity.name}
-                    </option>
-                  ),
-                )}
-              </select>
-            </>
+        Activity
+        <select {...register("physical_activity_level_id")}>
+          {physicalActivityLevels?.physical_activity_levelCollection?.edges.map(
+            ({ node: activity }) => (
+              <option key={activity.id} value={activity.id}>
+                {activity.name}
+              </option>
+            ),
           )}
-        />
-
-        {/* <h3>BMR + Activ ity: {targetCalsWithActivity}</h3> */}
+        </select>
+        <h3>BMR + Activity: {targetCalsWithActivity}</h3>
         <h4>Macros</h4>
         <FormField
           label="protein % target"
@@ -196,18 +188,24 @@ const LoggedInContent = ({ session }: { session: Session }) => {
           name="carbs"
           isRequired={false}
         />
-        <FormField
+        {/* <NewField
           label="fat % target"
-          control={control}
           name="fat"
+          register={register}
           isRequired={false}
-        />
+        /> */}
         <button type="submit">Save</button>
-        {/* <h4>Target Cals: {totalCals}</h4>/
+        <h4>Target Cals: {totalCals}</h4>/
         <h4>
           Protein = {targetProtein}g, Carbs = {targetCarbs}g, Fat = {targetFat}g
-        </h4> */}
+        </h4>
       </form>
     </div>
   );
 };
+
+
+
+.-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.-.   .-.
+/ / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / / \ \ / /
+`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'   `-`-'
