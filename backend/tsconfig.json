@@ -1,0 +1,28 @@
+{
+  "extends": "@tsconfig/node22/tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "preserveConstEnums": true,
+    "esModuleInterop": true,
+    "types": [
+      "node"
+    ],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "@graphql/*": [
+        "src/graphql/*"
+      ],
+    }
+  },
+  "include": [
+    "src/**/*",
+    "tests/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}

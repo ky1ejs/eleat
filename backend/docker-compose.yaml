@@ -1,0 +1,13 @@
+# Run `docker compose up -d` to start db for local development
+
+services:
+  postgres:
+    image: "postgres:15.2-alpine"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./tests/init-test-db.sql:/docker-entrypoint-initdb.d/init.sql

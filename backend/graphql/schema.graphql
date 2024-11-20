@@ -1,0 +1,20 @@
+scalar Date
+scalar URL
+
+type Query {
+  account: Account
+}
+
+type Mutation {
+ initiatiateAuthentication(email: String!): String
+ validateAuthentication(email: String!, code: String!): String
+}
+
+type Account {
+  id: ID!
+  email: String!
+  name: String
+  avatar: URL
+  createdAt: Date!
+  updatedAt: Date!
+}
