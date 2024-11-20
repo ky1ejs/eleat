@@ -19,7 +19,7 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.0",
     "react-toastify": "^9.0.8",
-    "recharts": "2.1.12"
+    "recharts": "2.13.3"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",
