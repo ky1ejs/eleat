@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: "graphql/schema.graphql",
   generates: {
-    'src/__generated__/graphql/index.ts': {
+    'src/graphql/__generated__/graphql/index.ts': {
       plugins: [
         'typescript',
         'typescript-resolvers', {
@@ -15,7 +15,7 @@ const config: CodegenConfig = {
       ],
       config: {
         defaultMapper: 'DeepPartial<{T}>',
-        contextType: "../../graphql/GraphQLContext#GraphQLContext"
+        contextType: "@graphql/GraphQLContext#GraphQLContext"
       },
     },
   },

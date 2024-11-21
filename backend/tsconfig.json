@@ -1,7 +1,7 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist/src",
     "preserveConstEnums": true,
     "esModuleInterop": true,
     "types": [
@@ -9,11 +9,8 @@
     ],
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
       "@graphql/*": [
-        "src/graphql/*"
+        "./src/graphql/*"
       ],
     }
   },

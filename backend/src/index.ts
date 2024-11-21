@@ -1,11 +1,11 @@
 import { readFileSync } from 'fs';
-import urlScalar from '@/graphql/custom-scalars/urlScalar';
-import dateScalar from '@/graphql/custom-scalars/dateScalar';
-import { Resolvers } from '@/__generated__/graphql';
+import urlScalar from '@graphql/custom-scalars/urlScalar';
+import dateScalar from '@graphql/custom-scalars/dateScalar';
+import { Resolvers } from '@graphql/__generated__/graphql';
 import http from 'http';
 import express from 'express';
 import { ApolloServer } from '@apollo/server';
-import { GraphQLContext } from '@/graphql/GraphQLContext';
+import { GraphQLContext } from '@graphql/GraphQLContext';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import { expressMiddleware } from '@apollo/server/express4';
 import cors from 'cors';
