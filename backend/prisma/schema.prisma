@@ -13,13 +13,14 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(dbgenerated("gen_random_uuid()"))
-  email     String   @unique
-  username  String   @unique
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        String    @id @default(dbgenerated("gen_random_uuid()"))
+  email     String    @unique
+  username  String    @unique
+  name      String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @default(now())
   recipes   Recipe[]
+  sessions  Session[]
 }
 
 model EmailAutheticationRequest {
@@ -27,6 +28,14 @@ model EmailAutheticationRequest {
   email     String   @unique @db.Citext
   code      String
   createdAt DateTime @default(now())
+}
+
+model Session {
+  id         String   @id @default(dbgenerated("gen_random_uuid()"))
+  deviceName String
+  userId     String
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
 }
 
 model Recipe {

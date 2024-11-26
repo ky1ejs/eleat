@@ -6,15 +6,37 @@ type Query {
 }
 
 type Mutation {
- initiatiateAuthentication(email: String!): String
- validateAuthentication(email: String!, code: String!): String
+  initiateEmailAuthentication(email: String!): String!
+
+  # Used for creating a new account
+  completeAccountCreation(
+    token: String!, 
+    code: String!, 
+    username: String!,
+    deviceName: String
+  ): String!
+
+  # Used for signing into an existing account 
+  validateEmailAuthentication(
+    token: String!, 
+    code: String!,
+    deviceName: String
+  ): AuthenticationResult!
+}
+
+union AuthenticationResult = SuccessfulAuthentication | EmptyResponse
+
+type SuccessfulAuthentication {
+  account: Account!
+  sessionToken: String!
+}
+
+type EmptyResponse {
+  success: Boolean!
 }
 
 type Account {
-  id: ID!
   email: String!
-  name: String
+  username: String!
   avatar: URL
-  createdAt: Date!
-  updatedAt: Date!
 }
