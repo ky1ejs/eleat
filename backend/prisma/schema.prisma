@@ -21,6 +21,7 @@ model User {
   updatedAt DateTime  @default(now())
   recipes   Recipe[]
   sessions  Session[]
+  plans     Plan[]
 }
 
 model EmailAutheticationRequest {
@@ -47,4 +48,32 @@ model Recipe {
   updatedAt   DateTime @updatedAt
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
+}
+
+model Plan {
+  id          String   @id @default(dbgenerated("gen_random_uuid()"))
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user_id     String
+  user        User     @relation(fields: [user_id], references: [id])
+  meals       Meal[]
+}
+
+model Meal {
+  id        String     @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  plan_id   String
+  plan      Plan       @relation(fields: [plan_id], references: [id])
+  items     MealItem[]
+}
+
+model MealItem {
+  id        String   @id @default(dbgenerated("gen_random_uuid()"))
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  meal_id   String
+  meal      Meal     @relation(fields: [meal_id], references: [id])
 }
