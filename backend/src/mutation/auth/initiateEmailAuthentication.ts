@@ -1,4 +1,4 @@
-import { Mutation, MutationResolvers } from "@graphql/__generated__/graphql";
+import { MutationResolvers } from "@graphql/__generated__/graphql";
 import prisma from "src/prisma-client";
 import { sendEmail } from "src/sendEmail";
 

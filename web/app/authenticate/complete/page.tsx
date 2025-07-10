@@ -21,7 +21,7 @@ export default function CompleteAccountPage() {
   const submit = async () => {
     await completeAccountCreate(token, code, username, "Unknown")
       .then((session) => {
-        sessionStorage.setItem("session", session);
+        Cookies.set("session", session, { expires: 1 });
       })
   }
 

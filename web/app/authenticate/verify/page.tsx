@@ -24,7 +24,7 @@ export default function Verify() {
   const submit = (token: string, code: string) => {
     setIsLoading(true);
     validateLogIn(token, code).then(() => {
-      Cookies.set("auth-verify-code", code);
+      Cookies.set("auth-verify-code", code, { expires: 1 });
       router.push("/authenticate/complete");
       setIsLoading(false);
     }).catch((error) => {

@@ -1,5 +1,5 @@
 import { graphql } from "@/graphql/__generated__";
-import client from "@/graphql/apollo-client";
+import { getClient } from "@/graphql/apollo-client";
 
 const AUTH = graphql(`
   mutation InitiateEmailAuthentication($email: String!) {
@@ -8,7 +8,7 @@ const AUTH = graphql(`
 `);
 
 export const logIn = async (email: string): Promise<string> => {
-  const result = await client.mutate({
+  const result = await getClient(undefined).mutate({
     mutation: AUTH,
     variables: { email },
     errorPolicy: 'all',
@@ -37,7 +37,7 @@ const VALIDATE_AUTH = graphql(`
 `);
 
 export const validateLogIn = async (token: string, code: string): Promise<string | true> => {
-  const result = await client.mutate({
+  const result = await getClient(undefined).mutate({
     mutation: VALIDATE_AUTH,
     variables: { token, code },
   });
@@ -66,7 +66,7 @@ const COMPLETE_ACCOUNT = graphql(`
 `);
 
 export const completeAccountCreate = async (token: string, code: string, username: string, deviceName: string): Promise<string> => {
-  const result = await client.mutate({
+  const result = await getClient(undefined).mutate({
     mutation: COMPLETE_ACCOUNT,
     variables: { token, code, username, deviceName },
   });

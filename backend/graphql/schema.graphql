@@ -3,6 +3,7 @@ scalar URL
 
 type Query {
   account: Account
+  plans: [Plan!]!
 }
 
 type Mutation {
@@ -39,4 +40,9 @@ type Account {
   email: String!
   username: String!
   avatar: URL
+}
+
+type Plan {
+  id: String!
+  name: String!
 }

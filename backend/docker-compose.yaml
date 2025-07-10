@@ -1,6 +1,8 @@
 # Run `docker compose up -d` to start db for local development
 
+name: eleat
 services:
+
   postgres:
     image: "postgres:15.2-alpine"
     environment:

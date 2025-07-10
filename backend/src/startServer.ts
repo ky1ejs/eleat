@@ -10,9 +10,9 @@ import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import prisma from "src/prisma-client";
-import initiateEmailAuthentication from "src/mutation/initiateEmailAuthentication";
-import validateEmailAuthentication from "src/mutation/validateAuthentication";
-import completeAccountCreation from "src/mutation/completeAccountCreation";
+import initiateEmailAuthentication from "src/mutation/auth/initiateEmailAuthentication";
+import validateEmailAuthentication from "src/mutation/auth/validateAuthentication";
+import completeAccountCreation from "src/mutation/auth/completeAccountCreation";
 
 export const startServer = async () => {
   const typeDefs = readFileSync('graphql/schema.graphql', { encoding: 'utf-8' });
@@ -43,11 +43,16 @@ export const startServer = async () => {
     cors<cors.CorsRequest>(),
     express.json(),
     expressMiddleware(server, {
-      context: async () => ({
-        dataSources: {
-          prisma
+      context: async (request) => {
+        const session = await prisma.session.findUnique({ where: { id: request.req.headers.authorization ?? "" }, include: { user: true } });
+        const context: GraphQLContext = {
+          session: session ?? undefined,
+          dataSources: {
+            prisma
+          }
         }
-      })
+        return context
+      }
     }),
   );
 

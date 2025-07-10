@@ -22,7 +22,7 @@ export default function Authenticate() {
     setIsLoading(true);
     logIn(email).then((token) => {
       setIsLoading(false);
-      Cookies.set("auth-verify-token", token);
+      Cookies.set("auth-verify-token", token, { expires: 1 });
       router.push("/authenticate/verify");
     }).catch((e) => {
       setIsLoading(false);
